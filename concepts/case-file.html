@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Case Against DemandBoost — Independent Case File</title>
+<style>
+/* ============ THE CASE FILE — paper + ink + one accusatory red ============ */
+:root{
+  --paper:#efe9da;
+  --sheet:#f8f4e9;
+  --sheet2:#f3eede;
+  --ink:#191308;
+  --ink2:#4d4433;
+  --faded:#7c7159;
+  --rule:#c9bfa5;
+  --rule2:#ddd4bc;
+  --red:#b31b1b;
+  --red-deep:#8f1414;
+  --red-wash:#b31b1b14;
+  --good:#1d5c33;
+  --disp:"Arial Narrow","Avenir Next Condensed","Helvetica Neue Condensed","Roboto Condensed","Liberation Sans Narrow",Arial,sans-serif;
+  --mono:"Courier New",Courier,"Nimbus Mono PS",monospace;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:
+    radial-gradient(1200px 500px at 70% -10%, #e6dfc9 0%, transparent 60%),
+    var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:clamp(15px,1.1vw,17px);
+  line-height:1.62;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:var(--red-deep)}
+.sheet{
+  max-width:1120px;
+  margin:clamp(10px,3vw,44px) auto;
+  background:var(--sheet);
+  border:1px solid var(--rule);
+  box-shadow:0 1px 0 #fff inset, 0 14px 40px rgba(25,19,8,.18);
+  position:relative;
+}
+/* red margin rule, legal-pad style */
+.sheet::before{
+  content:"";position:absolute;top:0;bottom:0;left:clamp(14px,3.4vw,46px);
+  width:2px;background:rgba(179,27,27,.28);pointer-events:none;
+}
+.inner{padding:clamp(20px,4.5vw,60px) clamp(22px,5.5vw,72px)}
+
+/* ---------- type ---------- */
+.disp{font-family:var(--disp);font-stretch:condensed;text-transform:uppercase;line-height:.94;letter-spacing:.01em;font-weight:900}
+.mono{font-family:var(--mono)}
+.kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-size:clamp(10px,.8vw,12px);color:var(--faded)}
+.small{font-size:clamp(11px,.85vw,13px)}
+p.lead{font-size:clamp(16px,1.35vw,20px);line-height:1.55}
+em{font-style:italic}
+
+/* ---------- masthead ---------- */
+.topstrip{
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  border-bottom:3px double var(--ink);
+  padding:12px clamp(22px,5.5vw,72px);
+  font-family:var(--mono);font-size:clamp(10px,.85vw,12.5px);
+  text-transform:uppercase;letter-spacing:.14em;color:var(--ink2);
+}
+.masthead{border-bottom:1px solid var(--rule);text-align:center;padding:clamp(26px,4vw,52px) clamp(22px,5.5vw,72px) clamp(22px,3vw,40px)}
+.masthead .court{font-family:var(--mono);letter-spacing:.3em;text-transform:uppercase;font-size:clamp(11px,.95vw,14px);color:var(--ink2)}
+.masthead .vs{font-family:var(--mono);letter-spacing:.2em;font-size:clamp(11px,.95vw,14px);color:var(--faded);margin:14px 0 10px}
+h1.case-title{
+  font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;
+  font-size:clamp(40px,8.4vw,108px);line-height:.9;letter-spacing:.005em;margin:6px 0 4px;
+}
+h1.case-title .red{color:var(--red)}
+.charge-one{
+  max-width:60ch;margin:clamp(14px,2vw,24px) auto 0;font-size:clamp(15px,1.3vw,19px);line-height:1.6;
+}
+.independence{
+  margin:clamp(16px,2.4vw,28px) auto 0;max-width:72ch;
+  font-family:var(--mono);font-size:clamp(10.5px,.85vw,12.5px);color:var(--ink2);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:10px 6px;letter-spacing:.04em;
+}
+.fineprint{margin-top:10px;font-family:var(--mono);font-size:clamp(9.5px,.75vw,11px);color:var(--faded);letter-spacing:.06em}
+.scopeline{
+  margin-top:clamp(14px,2vw,22px);
+  font-family:var(--mono);font-size:clamp(10px,.82vw,12.5px);color:var(--ink2);line-height:1.9;letter-spacing:.03em;
+}
+.scopeline b{color:var(--ink)}
+
+/* ---------- hero verdict numbers ---------- */
+.verdict-row{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  border:2px solid var(--ink);border-left-width:2px;margin-top:clamp(20px,3vw,34px);
+  background:var(--sheet2);text-align:left;
+}
+.verdict-cell{padding:clamp(14px,2vw,26px);border-right:1px solid var(--rule);position:relative}
+.verdict-cell:last-child{border-right:0}
+.verdict-cell .n{font-family:var(--disp);font-stretch:condensed;font-weight:900;font-size:clamp(46px,6.5vw,84px);line-height:.9}
+.verdict-cell .n.red{color:var(--red)}
+.verdict-cell .l{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:clamp(10px,.8vw,12px);color:var(--ink2);margin-top:8px;line-height:1.6}
+
+/* ---------- stamps ---------- */
+.stamp{
+  display:inline-block;font-family:var(--mono);font-weight:700;text-transform:uppercase;
+  color:var(--red);border:3px double var(--red);
+  padding:.28em .7em;letter-spacing:.24em;font-size:clamp(10px,.9vw,13px);
+  transform:rotate(-6deg);opacity:.82;white-space:nowrap;
+}
+.stamp.ink{color:var(--ink2);border-color:var(--ink2);opacity:.6}
+.stamp-corner{position:absolute;top:clamp(8px,1.4vw,18px);right:clamp(8px,1.4vw,18px)}
+
+/* ---------- charges ---------- */
+.charges{border:2px solid var(--ink);margin-top:clamp(22px,3vw,36px);background:var(--sheet)}
+.charges-head{
+  background:var(--ink);color:var(--sheet);padding:10px 16px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.charges-head .t{font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;font-size:clamp(18px,2vw,26px);letter-spacing:.04em}
+.charges-head .s{font-family:var(--mono);font-size:clamp(9.5px,.8vw,11.5px);letter-spacing:.16em;text-transform:uppercase;color:#d8cfba}
+.count{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(10px,2vw,22px);align-items:baseline;padding:clamp(12px,1.8vw,20px) clamp(12px,2vw,22px);border-top:1px solid var(--rule)}
+.count:first-of-type{border-top:0}
+.count .cn{font-family:var(--mono);font-weight:700;color:var(--red);letter-spacing:.12em;font-size:clamp(11px,.9vw,13px);white-space:nowrap}
+.count .ct{font-size:clamp(14px,1.15vw,17px)}
+.count .ct b{font-family:var(--disp);font-stretch:condensed;text-transform:uppercase;font-weight:900;letter-spacing:.03em;font-size:clamp(15px,1.3vw,19px);display:block;margin-bottom:2px}
+.count .cx{font-family:var(--mono);font-size:clamp(9.5px,.8vw,11.5px);color:var(--faded);white-space:nowrap;letter-spacing:.08em}
+@media (max-width:560px){.count{grid-template-columns:1fr}.count .cx{white-space:normal}}
+
+/* ---------- docket stat band ---------- */
+.docket{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:0;border:1px solid var(--ink);margin-top:clamp(22px,3vw,36px);background:var(--sheet2);
+}
+.docket .d{padding:clamp(12px,1.8vw,20px);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.docket .d .n{font-family:var(--disp);font-stretch:condensed;font-weight:900;font-size:clamp(26px,3vw,40px);line-height:1}
+.docket .d .n.red{color:var(--red)}
+.docket .d .k{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:clamp(9.5px,.75vw,11px);color:var(--ink2);margin-top:6px;line-height:1.65}
+
+/* ---------- exhibits ---------- */
+.exhibit{border-top:3px double var(--ink);margin-top:clamp(34px,5vw,64px);padding-top:clamp(18px,2.6vw,30px);position:relative}
+.ex-tag{
+  display:inline-block;font-family:var(--mono);font-weight:700;letter-spacing:.2em;
+  background:var(--red);color:#fdf9ee;padding:.35em .8em;font-size:clamp(10px,.85vw,12.5px);
+  text-transform:uppercase;
+}
+.ex-title{
+  font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;
+  font-size:clamp(26px,4.4vw,54px);line-height:.94;margin:12px 0 6px;
+}
+.ex-sub{font-style:italic;color:var(--ink2);font-size:clamp(14px,1.2vw,18px);max-width:68ch}
+.ex-body{margin-top:clamp(14px,2vw,24px)}
+.ex-body p{max-width:72ch;margin-bottom:1em}
+.callout{
+  border:2px solid var(--red);background:var(--red-wash);
+  padding:clamp(12px,2vw,22px);margin:clamp(14px,2vw,24px) 0;position:relative;
+}
+.callout .big{font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;font-size:clamp(18px,2.2vw,28px);line-height:1.05}
+.callout p{margin-top:8px;margin-bottom:0}
+.note{font-family:var(--mono);font-size:clamp(10px,.8vw,12px);color:var(--faded);letter-spacing:.05em;line-height:1.8}
+
+/* ---------- tables ---------- */
+.tscroll{overflow-x:auto;border:1px solid var(--ink);background:var(--sheet)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-family:var(--mono);font-size:clamp(11px,.9vw,13.5px)}
+caption{caption-side:bottom;text-align:left;font-family:var(--mono);font-size:clamp(9.5px,.78vw,11.5px);color:var(--faded);padding:8px 10px;letter-spacing:.05em;line-height:1.7}
+th{
+  text-align:left;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;
+  font-size:clamp(9.5px,.75vw,11px);color:var(--sheet);background:var(--ink);
+  padding:8px 10px;font-weight:700;white-space:nowrap;
+}
+td{padding:8px 10px;border-top:1px solid var(--rule2);vertical-align:top}
+td.num,th.num{text-align:right;white-space:nowrap}
+tr.flag td{background:var(--red-wash)}
+.bar{position:relative;height:12px;background:#e7e0cb;border:1px solid var(--rule);min-width:120px}
+.bar i{position:absolute;inset:0;width:var(--w);background:var(--ink)}
+.bar.red i{background:var(--red)}
+.redtxt{color:var(--red);font-weight:700}
+.goodtxt{color:var(--good);font-weight:700}
+
+/* ---------- evidence (screenshots) ---------- */
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:clamp(12px,1.8vw,20px);margin:clamp(14px,2vw,24px) 0}
+.ev-grid.two{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+figure.ev{border:1px solid var(--ink);background:#fff;padding:8px;box-shadow:3px 4px 0 rgba(25,19,8,.14);margin:0}
+figure.ev img{width:100%;height:auto;background:#e9e2cf;min-height:110px;color:var(--faded);font-family:var(--mono);font-size:11px}
+figure.ev figcaption{
+  font-family:var(--mono);font-size:clamp(9px,.72vw,10.5px);text-transform:uppercase;
+  letter-spacing:.1em;color:var(--ink2);padding:8px 2px 2px;line-height:1.7;
+}
+figure.ev figcaption .eid{color:var(--red);font-weight:700}
+
+/* ---------- word-for-word quote cards ---------- */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(12px,1.8vw,20px);margin-top:clamp(14px,2vw,24px)}
+.wcard{border:1px solid var(--ink);background:var(--sheet2);padding:clamp(12px,1.6vw,20px);position:relative}
+.wcard .q{font-family:var(--mono);font-size:clamp(11.5px,.95vw,14px);line-height:1.75;background:#fff;border:1px solid var(--rule);padding:10px 12px}
+.wcard .onn{font-family:var(--disp);font-stretch:condensed;font-weight:900;font-size:clamp(22px,2.4vw,32px);color:var(--red);line-height:1}
+.wcard .onl{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:clamp(9px,.72vw,10.5px);color:var(--ink2)}
+.wcard .head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.wcard .doms{font-family:var(--mono);font-size:clamp(9.5px,.76vw,11px);color:var(--faded);margin-top:10px;line-height:1.8;word-break:break-word}
+
+/* ---------- LCP bar viz ---------- */
+.lcpviz{border:1px solid var(--ink);background:var(--sheet2);padding:clamp(14px,2vw,24px);margin:clamp(14px,2vw,24px) 0}
+.lcpviz .row{display:grid;grid-template-columns:minmax(96px,150px) 1fr;gap:12px;align-items:center;margin-top:12px}
+.lcpviz .lbl{font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;font-size:clamp(9.5px,.78vw,11.5px)}
+.lcpviz .track{position:relative;height:26px;background:#e7e0cb;border:1px solid var(--rule)}
+.lcpviz .fill{position:absolute;top:0;bottom:0;left:0;width:var(--w)}
+.lcpviz .fill.red{background:var(--red)}
+.lcpviz .fill.ink{background:var(--ink)}
+.lcpviz .val{position:absolute;top:50%;transform:translateY(-50%);left:calc(var(--w) + 8px);font-family:var(--mono);font-weight:700;font-size:clamp(10px,.85vw,13px);white-space:nowrap}
+.lcpviz .val.in{left:auto;right:8px;color:#fdf9ee}
+.lcpviz .gline{position:absolute;top:-8px;bottom:-8px;left:var(--w);width:2px;background:var(--ink);opacity:.65}
+.lcpviz .gl-lbl{font-family:var(--mono);font-size:clamp(9px,.72vw,10.5px);text-transform:uppercase;letter-spacing:.1em;color:var(--ink2);margin-top:14px}
+
+/* ---------- closing / cta / winners ---------- */
+.closing{border:3px solid var(--ink);background:var(--ink);color:var(--sheet);padding:clamp(20px,3.4vw,44px);margin-top:clamp(34px,5vw,64px);position:relative}
+.closing .kicker{color:#b3a98d}
+.closing h2{font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;font-size:clamp(30px,5vw,62px);line-height:.92;margin:10px 0 14px}
+.closing h2 .red{color:#ff5c47}
+.closing p{max-width:70ch;margin-bottom:1em;color:#e9e2cf}
+.closing .vlist{font-family:var(--mono);font-size:clamp(11px,.92vw,13.5px);line-height:2;color:#d8cfba;border-top:1px solid #3a332400;border-top:1px solid rgba(248,244,233,.25);padding-top:14px;margin-top:6px}
+.closing .vlist b{color:#fff}
+.cta{border:3px solid var(--red);background:var(--red-wash);padding:clamp(20px,3.2vw,40px);margin-top:clamp(28px,4vw,52px);text-align:center;position:relative}
+.cta h2{font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;font-size:clamp(28px,4.6vw,56px);line-height:.94}
+.cta p{max-width:62ch;margin:14px auto 0}
+.btn{
+  display:inline-block;margin-top:clamp(16px,2.4vw,26px);
+  background:var(--red);color:#fdf9ee;text-decoration:none;
+  font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;
+  font-size:clamp(16px,1.6vw,22px);letter-spacing:.06em;
+  padding:.75em 1.6em;border:2px solid var(--red-deep);box-shadow:4px 4px 0 rgba(25,19,8,.35);
+}
+details.winners{border:2px solid var(--ink);margin-top:clamp(28px,4vw,52px);background:var(--sheet2)}
+details.winners summary{
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:clamp(14px,2vw,24px);
+}
+details.winners summary::-webkit-details-marker{display:none}
+details.winners summary .t{font-family:var(--disp);font-stretch:condensed;font-weight:900;text-transform:uppercase;font-size:clamp(20px,2.6vw,34px);line-height:1}
+details.winners summary .hint{font-family:var(--mono);font-size:clamp(9.5px,.8vw,11.5px);text-transform:uppercase;letter-spacing:.14em;color:var(--ink2)}
+details.winners[open] summary{border-bottom:1px solid var(--rule)}
+details.winners .body{padding:clamp(14px,2vw,24px)}
+.footer{border-top:3px double var(--ink);margin-top:clamp(34px,5vw,64px);padding-top:clamp(16px,2.4vw,26px)}
+.footer p{max-width:80ch}
+.sig{font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;font-size:clamp(9.5px,.8vw,11.5px);color:var(--faded);margin-top:18px;line-height:2}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="topstrip">
+    <span>Independent analysis &middot; presented as a case file</span>
+    <span>File DB&#8209;097 &middot; Filed 2026&#8209;08&#8209;05</span>
+  </div>
+
+  <!-- ============================ MASTHEAD / HERO ============================ -->
+  <header class="masthead">
+    <div class="court">Before the court of public opinion</div>
+    <div class="vs">THE RECORD &mdash; versus &mdash;</div>
+    <h1 class="case-title">The Case Against<br><span class="red">DemandBoost</span></h1>
+
+    <p class="charge-one"><strong>The charge, in one sentence:</strong> that an agency billed 97 chiropractic
+    practices for local search marketing, shipped one production-line website under 12 shared templates, left its
+    own name in the code of 90 of them &mdash; and left <strong>82 of the 95 practices measured</strong> without a winning
+    share of the one search that fills a schedule: <em>&ldquo;chiropractor near me.&rdquo;</em></p>
+
+    <div class="independence">
+      An independent performance analysis of the DemandBoost client roster &mdash; not published by or affiliated with DemandBoost.
+    </div>
+    <div class="fineprint">A case-file-styled marketing analysis. No legal proceeding exists or is implied. The practices named are the injured party throughout &mdash; every count below is against the agency, never its clients.</div>
+
+    <p class="scopeline">
+      <b>SCOPE OF THE RECORD:</b> 97 chiropractic practices &middot; 95 contested-phrase + 36 niche-phrase geo-grid scans &middot;
+      97 fresh speed tests (phone + desktop) &middot; 83 site audits &middot; 97 homepage captures (desktop + phone) &middot;
+      every figure computed directly from the underlying scan data &middot; map reports hosted independently on localrankingtracker.com
+    </p>
+
+    <div class="verdict-row">
+      <div class="verdict-cell">
+        <div class="n red">86%</div>
+        <div class="l">of measured clients do NOT own &ldquo;chiropractor near me&rdquo; on their own map</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="n red">82<span style="font-size:.45em"> of 95</span></div>
+        <div class="l">scanned practices hold no winning share of the phrase they pay to win</div>
+      </div>
+      <div class="verdict-cell">
+        <div class="n">13<span style="font-size:.45em"> of 95</span></div>
+        <div class="l">winners &mdash; under 15% of the book &mdash; and their own patients carry them (Exhibit&nbsp;J)</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="inner">
+
+    <!-- ============================ THE CHARGES ============================ -->
+    <section class="charges" id="charges" aria-label="The charges">
+      <div class="charges-head">
+        <span class="t">The Charges</span>
+        <span class="s">Five counts &middot; each proven by the exhibits that follow</span>
+      </div>
+      <div class="count">
+        <span class="cn">COUNT&nbsp;1</span>
+        <span class="ct"><b>Failure to deliver visibility</b>
+        82 of 95 measured clients hold no winning share of &ldquo;chiropractor near me&rdquo;; 36 are invisible on their own map &mdash; zero top-3 appearances, anywhere.</span>
+        <span class="cx">&rarr; Exhibits A, C</span>
+      </div>
+      <div class="count">
+        <span class="cn">COUNT&nbsp;2</span>
+        <span class="ct"><b>Surrender of the map</b>
+        On 87 of 95 client maps, the #1 spot belongs to someone the client isn&rsquo;t paying. One franchise alone leads 23 of them.</span>
+        <span class="cx">&rarr; Exhibit B</span>
+      </div>
+      <div class="count">
+        <span class="cn">COUNT&nbsp;3</span>
+        <span class="ct"><b>A deliverable that doesn&rsquo;t load</b>
+        The median client site takes 10.5 seconds to show its main content on a phone. Google&rsquo;s bar is 2.5.</span>
+        <span class="cx">&rarr; Exhibit D</span>
+      </div>
+      <div class="count">
+        <span class="cn">COUNT&nbsp;4</span>
+        <span class="ct"><b>Mass production sold as marketing</b>
+        90 of 97 sites carry the agency&rsquo;s fingerprints in their own code; 83 of 97 run 12 shared templates; 172 passages repeat word-for-word across the roster.</span>
+        <span class="cx">&rarr; Exhibits E&ndash;H</span>
+      </div>
+      <div class="count">
+        <span class="cn">COUNT&nbsp;5</span>
+        <span class="ct"><b>Control of the off switch</b>
+        The agency&rsquo;s hosting can replace a client&rsquo;s website with a suspension notice &mdash; and on one roster domain, it has. Two more client domains don&rsquo;t serve the practice at all.</span>
+        <span class="cx">&rarr; Exhibit I</span>
+      </div>
+    </section>
+
+    <!-- ============================ DOCKET STAT BAND ============================ -->
+    <section aria-label="The docket in six numbers">
+      <div class="docket">
+        <div class="d"><div class="n">97</div><div class="k">Clients in the book &middot; 95 map-scanned &middot; 2 not yet measured</div></div>
+        <div class="d"><div class="n red">13 of 95</div><div class="k">Own the phrase &middot; winning share (50%+) of &ldquo;chiropractor near me&rdquo;</div></div>
+        <div class="d"><div class="n red">5.8%</div><div class="k">Median share of the phrase across all 95 scanned</div></div>
+        <div class="d"><div class="n red">8.9</div><div class="k">Median map position &middot; 42 of 95 average worse than #10</div></div>
+        <div class="d"><div class="n red">48/100</div><div class="k">Median phone PageSpeed &middot; desktop: 60/100 &middot; 97 tested</div></div>
+        <div class="d"><div class="n red">10.5s</div><div class="k">Phone load (LCP) &middot; desktop 2.4s &middot; Google&rsquo;s bar: 2.5s</div></div>
+      </div>
+      <p class="note" style="margin-top:10px">Entered on the docket 2026&#8209;08&#8209;05. Every number above is computed from the scan data behind this file and repeated, row by row, in the full directory of all 97 clients.</p>
+    </section>
+
+    <!-- ============================ EXHIBIT A — SEGMENTS ============================ -->
+    <section class="exhibit" id="exhibit-a">
+      <span class="stamp stamp-corner">Documented</span>
+      <span class="ex-tag">Exhibit A</span>
+      <h2 class="ex-title">Three fates, one roster &mdash;<br>and only one of them is winning</h2>
+      <p class="ex-sub">Share of local voice on the contested phrase: of the map points scanned around each practice, the share where it shows in the top three for &ldquo;chiropractor near me.&rdquo; Measured practice by practice, across all 95 scanned clients.</p>
+      <div class="ex-body">
+        <div class="tscroll">
+          <table>
+            <caption>All shares are of the 95 scanned clients. 2 further clients have no map scan yet &mdash; they are carried as &ldquo;not measured,&rdquo; and no map claim is made about them (their sites were still speed-tested, phone and desktop).</caption>
+            <thead><tr><th>Outcome</th><th>What the scan found</th><th class="num">Clients</th><th class="num">Share</th><th>Of the 95 scanned</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td class="redtxt">INVISIBLE</td><td>zero top-3 appearances for the phrase, anywhere on their own map</td><td class="num redtxt">36</td><td class="num redtxt">38%</td><td><div class="bar red" style="--w:78.3%"><i></i></div></td></tr>
+              <tr class="flag"><td class="redtxt">PARTIAL</td><td>visible on fragments of their map, unseen on the rest</td><td class="num redtxt">46</td><td class="num redtxt">48%</td><td><div class="bar red" style="--w:100%"><i></i></div></td></tr>
+              <tr><td class="goodtxt">MARKET WINNER</td><td>holds a winning share (50%+) of the phrase on their own map</td><td class="num">13</td><td class="num">14%</td><td><div class="bar" style="--w:28.3%"><i></i></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <div class="big">82 of 95 measured clients &mdash; 86% &mdash; do not hold a winning share of the search that fills a schedule.</div>
+          <p>When nearly an entire roster loses the same phrase the same way, the practices are not the problem. The provider is. Some clients also hold a narrower niche phrase &mdash; that appears on their own page as a secondary line, never as the headline.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT B — LEADERBOARD ============================ -->
+    <section class="exhibit" id="exhibit-b">
+      <span class="stamp stamp-corner">Documented</span>
+      <span class="ex-tag">Exhibit B</span>
+      <h2 class="ex-title">The maps their clients pay for<br>are owned by other people</h2>
+      <p class="ex-sub">On 87 of the 95 maps scanned, the #1 spot &mdash; measured as the share of grid points where a listing ranks first &mdash; belongs to someone other than the client paying for marketing. Only 8 clients hold #1 most often on their own map. The top spots concentrate into just 54 competing listings &mdash; and one name repeats far beyond any other.</p>
+      <div class="ex-body">
+        <div class="tscroll">
+          <table>
+            <caption>Frequency of the #1-most-often holder across the 95 contested scans; scans where the top holder IS the client are excluded from the rows and counted in the 8 self-held maps. Full 54-name leaderboard in the full build.</caption>
+            <thead><tr><th class="num">#</th><th>Who holds #1 most often</th><th class="num">Client maps led</th><th>Scale</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td class="num">1</td><td class="redtxt">The Joint Chiropractic</td><td class="num redtxt">23</td><td><div class="bar red" style="--w:100%"><i></i></div></td></tr>
+              <tr><td class="num">2</td><td>Lifecare Chiropractic</td><td class="num">3</td><td><div class="bar" style="--w:13%"><i></i></div></td></tr>
+              <tr><td class="num">3</td><td>100% Chiropractic &ndash; North Cumming</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">4</td><td>Alexander Chiropractic and Wellness &ndash; San Ramon</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">5</td><td>ChiroMarin</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">6</td><td>Power of Touch Chiropractic</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">7</td><td>Russian River Chiropractic</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">8</td><td>Southland Chiropractic Clinic</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">9</td><td>The Source Chiropractic</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">10</td><td>Wellness Chiropractic Dr. Brian Thalhamer, DC &amp; Dr. Ben Spencer DC</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">11</td><td>Young Chiropractic</td><td class="num">2</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td class="num">&mdash;</td><td>+ 43 more competitors</td><td class="num">1 each</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <div class="big">The Joint Chiropractic alone holds #1 most often on 23 of the 95 client maps scanned.</div>
+          <p>The monthly invoice is buying visibility on maps someone else owns &mdash; and each client&rsquo;s page in the directory names who owns theirs, with the competitor report to prove it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT C — AVERAGE POSITION ============================ -->
+    <section class="exhibit" id="exhibit-c">
+      <span class="stamp stamp-corner">Uncontested</span>
+      <span class="ex-tag">Exhibit C</span>
+      <h2 class="ex-title">The map pack is positions 1&ndash;3.<br>The median client sits at 8.9.</h2>
+      <p class="ex-sub">Every scan records the listing&rsquo;s rank at each point of a geo-grid laid over its own neighborhood, then averages them. The map pack &mdash; what a patient actually sees &mdash; is positions 1 to 3. Almost nobody in this book is near it.</p>
+      <div class="ex-body">
+        <div class="verdict-row">
+          <div class="verdict-cell">
+            <div class="n red">8.9</div>
+            <div class="l">Median average position across each client&rsquo;s own grid, for &ldquo;chiropractor near me&rdquo; (computed median: 8.86)</div>
+          </div>
+          <div class="verdict-cell">
+            <div class="n red">42 of 95</div>
+            <div class="l">Average WORSE than #10 on their own map &mdash; 44% of scanned clients, outside the results a search actually shows first</div>
+          </div>
+          <div class="verdict-cell">
+            <div class="n red">48 of 95</div>
+            <div class="l">Never rank #1 on a single point of their own grid &mdash; only 47 of 95 hit #1 anywhere at all</div>
+          </div>
+        </div>
+        <p class="note" style="margin-top:10px">The pin-by-pin map behind every one of these numbers lives in each client&rsquo;s own independent report, linked from their page in the directory. Each client&rsquo;s exact #1-count is on their row.</p>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT D — SPEED ============================ -->
+    <section class="exhibit" id="exhibit-d">
+      <span class="stamp stamp-corner">Documented</span>
+      <span class="ex-tag">Exhibit D</span>
+      <h2 class="ex-title">The one thing they actually build<br>takes 10.5 seconds to show up</h2>
+      <p class="ex-sub">The website is the deliverable every client pays for. Fresh speed tests, run 2026&#8209;08&#8209;04 on 97 of the 97 client sites &mdash; each tested twice, as a phone visitor and as a desktop visitor. These are the medians.</p>
+      <div class="ex-body">
+        <div class="lcpviz">
+          <div class="kicker">Time until the main content appears (LCP) &mdash; median across 97 sites</div>
+          <div class="row">
+            <span class="lbl">Google&rsquo;s bar</span>
+            <div class="track"><span class="gline" style="--w:23.8%"></span><span class="fill ink" style="--w:23.8%"></span><span class="val" style="--w:23.8%">2.5s</span></div>
+          </div>
+          <div class="row">
+            <span class="lbl redtxt">Their client sites, on a phone</span>
+            <div class="track"><span class="gline" style="--w:23.8%"></span><span class="fill red" style="--w:100%"></span><span class="val in">10.5s &mdash; 4&times; over the bar</span></div>
+          </div>
+          <div class="row">
+            <span class="lbl">Same sites, on desktop</span>
+            <div class="track"><span class="gline" style="--w:23.8%"></span><span class="fill ink" style="--w:22.9%"></span><span class="val" style="--w:22.9%">2.4s</span></div>
+          </div>
+          <div class="gl-lbl">Vertical rule = Google&rsquo;s 2.5-second bar. Most local searches happen on a phone.</div>
+        </div>
+        <div class="tscroll">
+          <table>
+            <caption>Fresh tests run 2026&#8209;08&#8209;04 &middot; 97 of 97 client domains, both strategies, zero failures &middot; full score-by-score data on each client&rsquo;s page in the directory.</caption>
+            <thead><tr><th>Metric</th><th class="num">On a phone</th><th class="num">On desktop</th><th>What it means</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td>PageSpeed score</td><td class="num redtxt">48/100</td><td class="num">60/100</td><td>Google&rsquo;s overall performance grade</td></tr>
+              <tr><td>First paint (FCP)</td><td class="num redtxt">3.5s</td><td class="num">1.0s</td><td>blank screen until anything appears</td></tr>
+              <tr class="flag"><td>Main content (LCP)</td><td class="num redtxt">10.5s</td><td class="num">2.4s</td><td>Google&rsquo;s bar is 2.5s</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <div class="big">A patient searching from a phone waits 10.5 seconds &mdash; on the median site in this book &mdash; before the page shows what it&rsquo;s for.</div>
+          <p>That is the product, as delivered, measured the day before this file was assembled. Not one client site was skipped.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT E — FINGERPRINTS ============================ -->
+    <section class="exhibit" id="exhibit-e">
+      <span class="stamp stamp-corner">Uncontested</span>
+      <span class="ex-tag">Exhibit E</span>
+      <h2 class="ex-title">Their own stylesheet:<br><span style="font-family:var(--mono);font-weight:700;text-transform:none;letter-spacing:0">css/demandboost.css</span></h2>
+      <p class="ex-sub">A layperson can verify this in ten seconds: View Source on almost any roster site and search &ldquo;demandboost.&rdquo; The agency&rsquo;s name is baked into the code of the websites its clients pay for.</p>
+      <div class="ex-body">
+        <div class="docket">
+          <div class="d"><div class="n red">90 of 97</div><div class="k">Client sites carry the agency&rsquo;s fingerprints in their own code &mdash; stylesheet, link, or visible credit line</div></div>
+          <div class="d"><div class="n red">50 of 97</div><div class="k">Load a stylesheet literally named after the agency: css/demandboost.css</div></div>
+          <div class="d"><div class="n red">90</div><div class="k">Link back to demandboost.com from the homepage</div></div>
+          <div class="d"><div class="n red">89</div><div class="k">Show a visible DemandBoost credit line on the page</div></div>
+          <div class="d"><div class="n red">37</div><div class="k">Share ONE accessibility-widget vendor account &mdash; a single account ID across 37 &ldquo;independent&rdquo; sites</div></div>
+          <div class="d"><div class="n">7</div><div class="k">Sites with no agency marker found &mdash; counted as exactly that: no marker, no further claim</div></div>
+        </div>
+        <div class="callout" style="margin-top:clamp(14px,2vw,24px)">
+          <div class="big">The most common credit line, verbatim, on 6 different practices&rsquo; homepages:</div>
+          <p class="mono">&ldquo;&copy; 2026. All Rights Reserved. Personal Injury Marketing by Demand Boost&rdquo;</p>
+          <p>These are not 97 independent websites. They are one production line &mdash; and the line stamps its maker&rsquo;s name on the way out.</p>
+        </div>
+        <div class="ev-grid two">
+          <figure class="ev">
+            <img src="../shots/agency-desktop.jpg" alt="Desktop homepage capture of demandboost.com, the agency's own website" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; E&#8209;1</span><br>demandboost.com &mdash; the agency&rsquo;s own homepage &middot; desktop &middot; captured 2026&#8209;08&#8209;05, the same day, the same way, as every client site in this file. It runs template family&nbsp;01 &mdash; the same template as 23 of its clients (Exhibit&nbsp;F).</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/desertspringschiro.com-desktop.jpg" alt="Desktop homepage capture of desertspringschiro.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; E&#8209;2</span><br>desertspringschiro.com &mdash; one of the 50 client sites loading css/demandboost.css &middot; desktop &middot; captured 2026&#8209;08&#8209;05.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT F — TEMPLATE FAMILIES ============================ -->
+    <section class="exhibit" id="exhibit-f">
+      <span class="stamp stamp-corner">Documented</span>
+      <span class="ex-tag">Exhibit F</span>
+      <h2 class="ex-title">One template, twelve skins,<br>eighty-three &ldquo;independent&rdquo; websites</h2>
+      <p class="ex-sub">Same theme, same asset stack, same page skeleton &mdash; a different logo on top. Deterministic clustering (same theme, OR asset-path overlap &ge; 0.5, OR DOM-shape match) puts 83 of 97 client sites into 12 multi-site template families. The other 14 run a template no roster site shares.</p>
+      <div class="ex-body">
+        <div class="tscroll">
+          <table>
+            <caption>Family fingerprints are the shared asset stacks found in the code. Full member lists for all 12 families &mdash; every one of the 83 sites &mdash; in the full build.</caption>
+            <thead><tr><th>Family</th><th class="num">Client sites</th><th>Fingerprint (shared assets)</th><th>Scale</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td class="redtxt">family&#8209;01 + THE AGENCY&rsquo;S OWN SITE</td><td class="num redtxt">23</td><td>static template [js/functions.js, js/jquery.js, js/plugins.js]</td><td><div class="bar red" style="--w:100%"><i></i></div></td></tr>
+              <tr><td>family&#8209;02</td><td class="num">14</td><td>static template [js/bootstrap.js, js/helper-plugins.js, js/init.js]</td><td><div class="bar" style="--w:60.9%"><i></i></div></td></tr>
+              <tr><td>family&#8209;03</td><td class="num">12</td><td>static template [js/app.js, theme-icons/style.css, vendor/bootstrap/bootstrap.min.js]</td><td><div class="bar" style="--w:52.2%"><i></i></div></td></tr>
+              <tr><td>family&#8209;04</td><td class="num">7</td><td>static template [css/dark.css, css/demandboost.css, css/hover-min.css]</td><td><div class="bar" style="--w:30.4%"><i></i></div></td></tr>
+              <tr><td>family&#8209;05</td><td class="num">5</td><td>static template [css/demandboost.css, css/slider.css, fonts/font-awesome/css/font-awesome.min.css]</td><td><div class="bar" style="--w:21.7%"><i></i></div></td></tr>
+              <tr><td>family&#8209;06</td><td class="num">5</td><td>static template [css/demandboost.css, css/noticebar.css, css/slider.css]</td><td><div class="bar" style="--w:21.7%"><i></i></div></td></tr>
+              <tr><td>family&#8209;07</td><td class="num">5</td><td>static template [js/compressed.js]</td><td><div class="bar" style="--w:21.7%"><i></i></div></td></tr>
+              <tr><td>family&#8209;08</td><td class="num">4</td><td>static template [css/theme-animate.css, js/mobile-menu.js, js/theme.js]</td><td><div class="bar" style="--w:17.4%"><i></i></div></td></tr>
+              <tr><td>family&#8209;09 &hellip; family&#8209;12</td><td class="num">2 each</td><td>four more two-site families &mdash; fingerprints in the full build</td><td><div class="bar" style="--w:8.7%"><i></i></div></td></tr>
+              <tr><td>unique</td><td class="num">14</td><td>no other roster site shares their template</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <div class="big">The largest family &mdash; 23 client sites &mdash; also contains DemandBoost&rsquo;s own homepage.</div>
+          <p>The agency and its clients are literally running the same code, shared css/demandboost.css included.</p>
+        </div>
+        <p><strong>Entered into evidence below: four &ldquo;different&rdquo; practices, one template.</strong> All four are members of family&#8209;04 &mdash; same asset stack (css/dark.css, css/demandboost.css, css/hover-min.css), captured the same day. The logos change. The website doesn&rsquo;t.</p>
+        <div class="ev-grid">
+          <figure class="ev">
+            <img src="../shots/desertspringschiro.com-desktop.jpg" alt="Desktop homepage capture of desertspringschiro.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; F&#8209;1</span><br>desertspringschiro.com &middot; family&#8209;04 &middot; desktop &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/gilbertaccidentinjuryclinic.com-desktop.jpg" alt="Desktop homepage capture of gilbertaccidentinjuryclinic.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; F&#8209;2</span><br>gilbertaccidentinjuryclinic.com &middot; family&#8209;04 &middot; desktop &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/paloaltoautoaccidentinjury.com-desktop.jpg" alt="Desktop homepage capture of paloaltoautoaccidentinjury.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; F&#8209;3</span><br>paloaltoautoaccidentinjury.com &middot; family&#8209;04 &middot; desktop &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/sfautoaccidentinjury.com-desktop.jpg" alt="Desktop homepage capture of sfautoaccidentinjury.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; F&#8209;4</span><br>sfautoaccidentinjury.com &middot; family&#8209;04 &middot; desktop &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT G — WORD FOR WORD ============================ -->
+    <section class="exhibit" id="exhibit-g">
+      <span class="stamp stamp-corner">Documented</span>
+      <span class="ex-tag">Exhibit G</span>
+      <h2 class="ex-title">172 passages, copied word for word,<br>site after site after site</h2>
+      <p class="ex-sub">Sentences from these practices&rsquo; own public homepages &mdash; visible text only, third-party widget text stripped, whitespace and punctuation normalized. 172 distinct passages of 15+ words appear word-for-word identical on 2 or more different domains. The worst one appears on 18.</p>
+      <div class="ex-body">
+        <div class="wgrid">
+          <div class="wcard">
+            <div class="head"><span class="onn">18</span><span class="onl">domains, word for word</span></div>
+            <div class="q">&ldquo;We know how good our chiropractic care is, but we would prefer if you heard it from our patients.&rdquo;</div>
+            <div class="doms">incl. charlotteautoaccidentdoctor.com &middot; desertspringschiro.com &middot; friscoautoaccidentcare.com &middot; gilbertaccidentinjuryclinic.com &middot; haggardchiro.com &middot; hifaichiropractic.com &middot; miracledoc.com &middot; oaklandautoaccidentinjury.com &middot; +10 more</div>
+          </div>
+          <div class="wcard">
+            <div class="head"><span class="onn">17</span><span class="onl">domains, word for word</span></div>
+            <div class="q">&ldquo;Through a complete understanding of the complexities of auto accident injury cases, we take great pride in providing excellent chiropractic care to help alleviate pain.&rdquo;</div>
+            <div class="doms">incl. autoaccidentchiropractic.com &middot; charlotteautoaccidentdoctor.com &middot; elcajonautoaccidentinjury.com &middot; friscoautoaccidentcare.com &middot; oklahomacityautoinjuryclinic.com &middot; +12 more</div>
+          </div>
+          <div class="wcard">
+            <div class="head"><span class="onn">9</span><span class="onl">domains, word for word</span></div>
+            <div class="q">&ldquo;Our patients are of the utmost importance to us; this is reflected the moment you enter our practice.&rdquo;</div>
+            <div class="doms">incl. askdrbrooks.com &middot; autoaccidentpaincare.com &middot; dilliardchiropractic.com &middot; kirklandautoinjuryclinic.com &middot; latchandsochiropractic.com &middot; northokcchiro.com &middot; spineright.com &middot; +2 more</div>
+          </div>
+          <div class="wcard">
+            <div class="head"><span class="onn">8</span><span class="onl">domains, word for word</span></div>
+            <div class="q">&ldquo;Some temporary, mild soreness may occur afterward as your body adjusts to the new alignment, similar to how you might feel after starting a new exercise routine.&rdquo;</div>
+            <div class="doms">cowanchiro.com &middot; dilliardchiropractic.com &middot; irvinechiropracticoffices.com &middot; liebmanwellness.com &middot; orangeprecisionchiropractic.com &middot; pleasantonfamilychiropractor.com &middot; progressivechiropractic.com &middot; turlockchiro.com</div>
+          </div>
+          <div class="wcard">
+            <div class="head"><span class="onn">8</span><span class="onl">domains, word for word</span></div>
+            <div class="q">&ldquo;We understand the underlying cause of your auto accident injury pain, its symptoms, and how to relieve that tension through chiropractic treatment.&rdquo;</div>
+            <div class="doms">autoaccidentchiropractic.com &middot; elcajonautoaccidentinjury.com &middot; haywardautoaccidentinjury.com &middot; oklahomacityautoinjuryclinic.com &middot; peoriaautoaccidentinjury.com &middot; rosevilleautoaccidentinjury.com &middot; sanjoseaccidentinjuryclinic.com &middot; turlockautoaccidentinjury.com</div>
+          </div>
+          <div class="wcard">
+            <div class="head"><span class="onn">8</span><span class="onl">domains, word for word</span></div>
+            <div class="q">&ldquo;Our chiropractic care offers affordable plans to fit all patients in the event that insurance has a limitation to care.&rdquo;</div>
+            <div class="doms">autoaccidentchiropractic.com &middot; elcajonautoaccidentinjury.com &middot; haywardautoaccidentinjury.com &middot; oklahomacityautoinjuryclinic.com &middot; peoriaautoaccidentinjury.com &middot; rosevilleautoaccidentinjury.com &middot; sanjoseaccidentinjuryclinic.com &middot; turlockautoaccidentinjury.com</div>
+          </div>
+        </div>
+        <p class="note" style="margin-top:14px">6 of the 172 identical passages shown &mdash; all 172, with every domain list, in the full build. 6 sites additionally sit in same-copy families where whole pages overlap up to 72% word-for-word.</p>
+
+        <div class="callout" style="margin-top:clamp(16px,2.4vw,28px)">
+          <div class="big">The mad-libs pattern: one page title, city swapped, 8 clusters deep &mdash; the largest spanning 8 sites.</div>
+          <p class="mono" style="line-height:2">
+            crusadechiropractic.com &mdash; &ldquo;Chiropractor in Sacramento, CA - $49 New Patient Special!&rdquo;<br>
+            dilliardchiropractic.com &mdash; &ldquo;Chiropractor El Cajon CA - $49 New Patient Special!&rdquo;<br>
+            drkellywellness.com &mdash; &ldquo;Chiropractor Cupertino | $49 New Patient Special!&rdquo;<br>
+            haggardchiro.com &mdash; &ldquo;Chiropractor Litchfield Park | $49 New Patient Special&rdquo;
+          </p>
+          <p>Zero titles are exact duplicates &mdash; the cities are swapped in. 8 near-identical title formulas cluster across the roster; the copy machine even runs the &lt;title&gt; tags.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT H — SAME MISTAKES ============================ -->
+    <section class="exhibit" id="exhibit-h">
+      <span class="stamp stamp-corner">Uncontested</span>
+      <span class="ex-tag">Exhibit H</span>
+      <h2 class="ex-title">Same mistakes, everywhere &mdash;<br>the template ships the defect</h2>
+      <p class="ex-sub">Basic on-page defects, measured on every rendered homepage. When the same defect ships on dozens of sites at once, it is not the practice&rsquo;s mistake. The template ships it &mdash; and the agency ships the template.</p>
+      <div class="ex-body">
+        <div class="tscroll">
+          <table>
+            <caption>Measured on all 97 rendered client homepages, captured 2026&#8209;08&#8209;05. Each client&rsquo;s own defect list is on their page in the directory.</caption>
+            <thead><tr><th>Defect</th><th class="num">Sites</th><th class="num">Share</th><th>Scale</th></tr></thead>
+            <tbody>
+              <tr class="flag"><td>More than one main headline (multiple H1) &mdash; muddles what the page is about</td><td class="num redtxt">38</td><td class="num redtxt">39%</td><td><div class="bar red" style="--w:100%"><i></i></div></td></tr>
+              <tr><td>No LocalBusiness schema &mdash; the markup that tells Google this is a local practice</td><td class="num">15</td><td class="num">15%</td><td><div class="bar red" style="--w:39.5%"><i></i></div></td></tr>
+              <tr><td>No H1 heading at all</td><td class="num">11</td><td class="num">11%</td><td><div class="bar red" style="--w:28.9%"><i></i></div></td></tr>
+              <tr><td>No meta description</td><td class="num">7</td><td class="num">7%</td><td><div class="bar red" style="--w:18.4%"><i></i></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout">
+          <div class="big">Proof it&rsquo;s systematic: three template families ship the multiple-H1 defect on 100% of their sites.</div>
+          <p class="mono">family&#8209;02: 14 of 14 sites &middot; family&#8209;04: 7 of 7 &middot; family&#8209;08: 4 of 4 &middot; (family&#8209;05: 4 of 5)</p>
+          <p>Every member, same defect. That is not 38 practices making the same mistake independently &mdash; that is one vendor making it once and photocopying it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EXHIBIT I — THE OFF SWITCH ============================ -->
+    <section class="exhibit" id="exhibit-i">
+      <span class="stamp stamp-corner">Documented</span>
+      <span class="ex-tag">Exhibit I</span>
+      <h2 class="ex-title">The agency controls the hosting &mdash;<br>and the off switch</h2>
+      <p class="ex-sub">One roster domain currently serves an agency suspension notice instead of a website. Two more client domains don&rsquo;t serve the practice&rsquo;s website at all. All three captured the same day, the same way, as every other site in this file.</p>
+      <div class="ex-body">
+        <div class="callout">
+          <div class="big">fairfieldohchiropractor.com &mdash; the practice&rsquo;s website is gone. In its place, verbatim:</div>
+          <p class="mono">&ldquo;Website Closed &mdash; This ACCOUNT is SUSPENDED &mdash; Please contact us [&hellip;] if you think this is due to an error &mdash; www.demandboost.com &mdash; Goodbye! &copy; All Rights Reserved.&rdquo;</p>
+          <p>When the agency suspends an account, the client&rsquo;s website is replaced by a suspension notice pointing at demandboost.com. The notice states no reason, and none is inferred here. The agency&rsquo;s phone number on the notice is redacted in this file.</p>
+        </div>
+        <div class="ev-grid">
+          <figure class="ev">
+            <img src="../shots/fairfieldohchiropractor.com-desktop.jpg" alt="Desktop capture of the agency suspension notice served at fairfieldohchiropractor.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; I&#8209;1</span><br>fairfieldohchiropractor.com &middot; the agency&rsquo;s suspension notice, as served &middot; desktop &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/fairfieldohchiropractor.com-mobile.jpg" alt="Phone capture of the agency suspension notice served at fairfieldohchiropractor.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; I&#8209;2</span><br>fairfieldohchiropractor.com &middot; the same notice on a phone &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/alohafamilychiro.com-desktop.jpg" alt="Desktop capture of the unrelated gambling page currently served at alohafamilychiro.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; I&#8209;3</span><br>alohafamilychiro.com &middot; captured page title: &ldquo;SBOBET88: Link Resmi Situs Judi Bola Online Agen SBOBET Mix Parlay Asia 2026&rdquo; &mdash; an offshore gambling page, not a chiropractic practice &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+          <figure class="ev">
+            <img src="../shots/evergreenchiropractic.com-desktop.jpg" alt="Desktop capture of the server default page currently served at evergreenchiropractic.com" loading="lazy">
+            <figcaption><span class="eid">Entered into evidence &middot; I&#8209;4</span><br>evergreenchiropractic.com &middot; captured page title: &ldquo;Plesk Obsidian 18.0.79&rdquo; &mdash; a bare server panel page, not a website &middot; captured 2026&#8209;08&#8209;05</figcaption>
+          </figure>
+        </div>
+        <p class="note">What those two domains serve today &mdash; pages unrelated to any practice &mdash; is captured and flagged on each client&rsquo;s own page. No template or copy reading is taken from a page that is not the practice&rsquo;s, and the practices themselves are blamed for none of it.</p>
+      </div>
+    </section>
+
+    <!-- ============================ CLOSING ARGUMENT ============================ -->
+    <section class="closing" id="closing">
+      <div class="kicker">Closing argument</div>
+      <h2>84 of 97 practices in this book<br><span class="red">have nothing to show for the invoice.</span></h2>
+      <p>Assemble the exhibits. 90 of 97 sites carry the agency&rsquo;s name in their own code. 83 of 97 run one of 12 shared templates &mdash; the largest of which includes the agency&rsquo;s own homepage. 172 passages repeat word-for-word across the roster, and even the page titles are mad-libs. The median site takes 10.5 seconds to load on a phone. And the result of all that &ldquo;marketing&rdquo;: 82 of the 95 practices measured hold no winning share of &ldquo;chiropractor near me,&rdquo; 87 of 95 maps are led by somebody else, and 48 of 95 never rank #1 on a single point of their own grid.</p>
+      <p><strong>The verdict this record supports:</strong> 84 of the 97 practices in this book have no demonstrated win &mdash; 82 measured and found without a winning share of the phrase, 2 never measured at all. That is a production line billing 97 practices and delivering for fewer than 15% of them.</p>
+      <p>And the 13 who do win? They carry themselves. Their median review count is 200 against a scanned-roster median of 49 &mdash; reviews earned by their own patients, one visit at a time. That asset belongs to the practice, not the agency, and it moves with the practice. See Exhibit&nbsp;J.</p>
+      <div class="vlist">
+        <b>ON THE RECORD:</b> 86% don&rsquo;t own the phrase &middot; 87 of 95 maps led by a non-client &middot; median position 8.9 &middot;
+        10.5s phone load vs a 2.5s bar &middot; 90 of 97 fingerprinted &middot; 83 of 97 templated &middot; 172 word-for-word passages &middot;
+        1 suspension notice &middot; 2 domains serving strangers&rsquo; pages
+      </div>
+    </section>
+
+    <!-- ============================ CTA — FIND YOUR PRACTICE ============================ -->
+    <section class="cta" id="directory">
+      <span class="stamp ink" style="position:absolute;top:12px;right:14px">For the record</span>
+      <div class="kicker" style="color:var(--red-deep)">Look yourself up</div>
+      <h2>Is your practice<br>in this file?</h2>
+      <p>All 97 clients, searchable and sortable. Every row shows the share of &ldquo;chiropractor near me,&rdquo; average map position, reviews, phone speed and load time &mdash; and every scanned practice links to its own independent report with the full pin-by-pin map. &ldquo;Not measured&rdquo; means exactly that: no scan yet, no claim made.</p>
+      <a class="btn" href="#directory">Open the directory &mdash; all 97 on the record</a>
+      <p class="note" style="margin-top:14px">Button wired to the live client directory in the full build.</p>
+    </section>
+
+    <!-- ============================ EXHIBIT J — THE EXCEPTIONS (WINNERS) ============================ -->
+    <details class="winners" id="exhibit-j">
+      <summary>
+        <span>
+          <span class="ex-tag" style="background:var(--ink)">Exhibit J</span>
+          <span class="t" style="display:block;margin-top:10px">The 13 exceptions &mdash; under 15% of the book &mdash; and who really carries them</span>
+        </span>
+        <span class="hint">Tap to open the winners&rsquo; table &#9662;</span>
+      </summary>
+      <div class="body">
+        <p style="max-width:72ch">The only listings in this book holding a winning share (50%+) of the contested phrase on their own map. Note the right-hand column before crediting the agency: <strong>12 of the 13</strong> carry review counts above the scanned-roster median of 49 &mdash; median among winners: <strong>200</strong>. Those reviews were earned by each practice&rsquo;s own patients, one visit at a time. That asset belongs to the practice &mdash; and it moves with the practice, to any provider.</p>
+        <div class="tscroll" style="margin-top:14px">
+          <table>
+            <caption>All 13 winners shown &mdash; this is the complete list. Share = share of map points in the top three for &ldquo;chiropractor near me&rdquo; on the practice&rsquo;s own grid.</caption>
+            <thead><tr><th class="num">#</th><th>Listing</th><th>Location</th><th class="num">Share of the phrase</th><th class="num">Patient-earned reviews</th></tr></thead>
+            <tbody>
+              <tr><td class="num">1</td><td>Advanced Health Chiropractic</td><td>Livermore, CA</td><td class="num goodtxt">90.1%</td><td class="num">451</td></tr>
+              <tr><td class="num">2</td><td>DiSiena Family Chiropractic</td><td>Irvine, CA</td><td class="num goodtxt">82.6%</td><td class="num">370</td></tr>
+              <tr><td class="num">3</td><td>Active Chiropractic Care</td><td>Commack, NY</td><td class="num goodtxt">73.6%</td><td class="num">230</td></tr>
+              <tr><td class="num">4</td><td>Stanford Chiropractic Center</td><td>Palo Alto, CA</td><td class="num goodtxt">70.3%</td><td class="num">167</td></tr>
+              <tr><td class="num">5</td><td>Mark Kimes, DC</td><td>Salinas, CA</td><td class="num goodtxt">69.4%</td><td class="num">200</td></tr>
+              <tr><td class="num">6</td><td>Aloha Family Chiropractic</td><td>Santa Maria, CA</td><td class="num goodtxt">66.1%</td><td class="num">34</td></tr>
+              <tr><td class="num">7</td><td>Giles Chiropractic</td><td>Napa, CA</td><td class="num goodtxt">66.1%</td><td class="num">181</td></tr>
+              <tr><td class="num">8</td><td>Monterey Chiropractic Care</td><td>Monterey, CA</td><td class="num goodtxt">62.0%</td><td class="num">92</td></tr>
+              <tr><td class="num">9</td><td>Canyon Chiropractic</td><td>San Ramon, CA</td><td class="num goodtxt">61.2%</td><td class="num">290</td></tr>
+              <tr><td class="num">10</td><td>ChiroMarin</td><td>Novato, CA</td><td class="num goodtxt">57.0%</td><td class="num">217</td></tr>
+              <tr><td class="num">11</td><td>Back Pain, Neck Pain &amp; Headache Relief Center</td><td>Salinas, CA</td><td class="num goodtxt">56.2%</td><td class="num">650</td></tr>
+              <tr><td class="num">12</td><td>Turlock Family Chiropractic</td><td>Turlock, CA</td><td class="num goodtxt">54.6%</td><td class="num">110</td></tr>
+              <tr><td class="num">13</td><td>Pacific Pointe Chiropractic</td><td>San Clemente, CA</td><td class="num goodtxt">53.7%</td><td class="num">119</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <!-- ============================ FOOTER ============================ -->
+    <footer class="footer">
+      <p><strong>Method, for the record.</strong> Deterministic scripts, no sampling, no judgment calls: geo-grid scans point by point around each practice, fresh PageSpeed tests on every domain (phone and desktop), rendered-homepage captures of all 97 client sites plus the agency&rsquo;s own &mdash; the agency&rsquo;s homepage is in the corpus for comparison only and is excluded from every per-97 count. Thresholds are stated inline wherever they apply. The 7 sites with no agency marker, the 2 unmeasured practices, and the 2 domains serving unrelated pages are reported as exactly that &mdash; no claim is stretched past its receipt.</p>
+      <p style="margin-top:12px">An independent performance analysis of the DemandBoost client roster &mdash; not published by or affiliated with DemandBoost.</p>
+      <p class="sig">Case file DB&#8209;097 &middot; filed 2026&#8209;08&#8209;05 &middot; a case-file-styled marketing analysis &mdash; no legal proceeding exists or is implied &middot; every practice named is the injured party, not the accused</p>
+    </footer>
+
+  </div><!-- /inner -->
+</div><!-- /sheet -->
+
+</body>
+</html>
