@@ -238,6 +238,20 @@ a.shotfrm:hover .shotlbl{color:var(--red)}
 .shotfrm.noimg .shotmiss{display:block}
 .shotrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px;margin-top:4px;align-items:start}
 .shotrow .shot-m{max-width:300px}
+.rankchip{font-family:var(--head);font-weight:900;font-size:12px;letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:var(--paper);padding:5px 9px;white-space:nowrap;flex:none}
+.rankchip.un{background:transparent;color:var(--ink-soft);border:1px dashed var(--ink-soft);padding:4px 8px}
+.story{border:2px solid var(--ink);background:rgba(255,255,255,.35);padding:clamp(14px,2.4vw,26px);margin-top:26px}
+.story .kick{margin:0 0 4px}
+.story h3.subhead{margin:1.3em 0 .3em;font-size:clamp(1.05rem,2vw,1.45rem)}
+.story .kick+h3.subhead{margin-top:.2em}
+.story p.sbody{font-size:.95rem;max-width:74ch;margin:.45em 0 0;text-align:justify;hyphens:auto;overflow-wrap:anywhere}
+.story p.sbody.dropcap::first-letter{font-family:var(--head);font-weight:900;font-size:3.4em;float:left;line-height:.8;padding:.04em .12em 0 0;color:var(--red)}
+.pullrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.6vw,18px);margin-top:1em}
+.pullrow>*{min-width:0}
+.pullstat{border:2px solid var(--ink);background:var(--paper2);padding:10px 12px}
+.pullstat .pv{font-family:var(--head);font-weight:900;font-size:clamp(1.3rem,2.4vw,2rem);line-height:1;color:var(--red);overflow-wrap:anywhere}
+.pullstat .pv.inked{color:var(--ink)}
+.pullstat .pk{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.4em;color:var(--ink-soft)}
 /* ------ breakpoint equivalents of the concept's media queries (html[data-bp] is stamped by JS) */
 html[data-bp=t] .stats,html[data-bp=m] .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
 html[data-bp=t] .stat:nth-child(3),html[data-bp=m] .stat:nth-child(3){border-right:0}
@@ -252,6 +266,7 @@ html[data-bp=m] .breaking-grid,html[data-bp=s] .breaking-grid{grid-template-colu
 html[data-bp=m] .qgrid,html[data-bp=s] .qgrid{grid-template-columns:1fr}
 html[data-bp=m] .burst,html[data-bp=s] .burst{margin:clamp(10px,2vw,20px) auto 0 0}
 html[data-bp=s] .colcopy{column-count:1}
+html[data-bp=s] .pullrow{grid-template-columns:1fr}
 html[data-bp=s] .duo{grid-template-columns:1fr}
 html[data-bp=s] .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
 html[data-bp=s] .stat{border-right:0;border-bottom:1px solid var(--ink-faint)}
@@ -404,9 +419,9 @@ function splashV7(){
 
  /* ---------------- hero + index ---------------- */
  h+='<section id="hero"><div class="hero-grid"><div>';
- /* hero line 3 states the receipted template count (A6's own number) — an absolute the page's
-    receipts contradict ("one template" vs 12 families + 14 unique) never ships. */
- h+='<h1 class="mega">One agency.<br><span class="l2">'+A.total+' '+E_VHOS+'.</span><br>'+(F.nfam===1?'One template.':F.nfam+' templates.')+'</h1>';
+ /* hero line 3: the registry may carry an owner-approved editorial line (baked at generation
+    time); without one, the computed template count (A6's own number) ships unchanged. */
+ h+='<h1 class="mega">One agency.<br><span class="l2">'+A.total+' '+E_VHOS+'.</span><br>'+esc("1 template.")+'</h1>';
  h+='<p class="hero-sub">';
  if(F.cssload!==null){h+=F.cssload+' of the websites the agency ships literally load a file named <span class="filecode rd">'+esc(CSSFILE)+'</span> \u2014 and '+notOwn+' of the '+NS+' '+E_VHOS+' measured don\u2019t hold a winning share of <em>'+QP+'</em> on their own map.';}
  else{h+=notOwn+' of the '+NS+' '+E_VHOS+' measured don\u2019t hold a winning share of <em>'+QP+'</em> on their own map.';}
@@ -480,18 +495,36 @@ function splashV7(){
  h+='<div class="notebox"><b>'+notOwn+' of '+NS+' measured clients \u2014 '+pctNotOwn+'% \u2014 do not hold a winning share of the search that fills a schedule.</b> A further '+A.seg.none+' clients on the roster have not had their map measured yet'+noneClause+'; they are listed in the directory as \u201cnot measured\u201d, and no map claim is made about them. Some clients also hold a narrower niche phrase \u2014 that is shown on their page as a secondary line, never as the headline.</div>';
  h+='</section>';
 
- /* ---------------- A3 leaderboard (FULL — every competing listing, 1-each tail included) ---------------- */
+ /* ---------------- A3 leaderboard (owner-approved top-10 fold — the table shows the top 10;
+    the full tail, counts computed never hardcoded, folds into a native details expander below
+    it. No data removed, zero script, matches the accordion styling.) ---------------- */
  h+='<section id="leaderboard"><p class="kick">A3 \u00b7 The other names on the trophy</p>';
  h+='<h2 class="headline">Who\u2019s really winning their clients\u2019 maps</h2>';
  h+='<p class="deck">On '+A.lb.held+' of the '+NS+' maps scanned, the #1 spot \u2014 the share of grid points where a listing ranks first \u2014 belongs to someone other than the client paying for marketing. Only '+A.lb.self+' clients hold #1 most often on their own map. Those top spots concentrate into '+A.lb.distinct+' competing listings \u2014 and one name repeats far beyond any other.</p>';
  var lmax=A.lb.top.length?A.lb.top[0].count:1;
- h+='<div class="tblwrap"><table><caption>Standings \u00b7 who holds #1 most often across the '+NS+' client maps \u00b7 all '+A.lb.distinct+' competing listings</caption>';
+ var lbTopN=A.lb.top.slice(0,10),lbRest=A.lb.top.slice(10);
+ h+='<div class="tblwrap"><table><caption>Standings \u00b7 who holds #1 most often across the '+NS+' client maps \u00b7 '+(lbRest.length?'top '+lbTopN.length+' of ':'all ')+A.lb.distinct+' competing listings</caption>';
  h+='<thead><tr><th scope="col">Who holds #1 most often</th><th scope="col">Client maps led</th><th scope="col" class="barcell"></th></tr></thead><tbody>';
- for(i=0;i<A.lb.top.length;i++){var lb=A.lb.top[i];
+ for(i=0;i<lbTopN.length;i++){var lb=lbTopN[i];
   h+='<tr><th scope="row">'+esc(lb.nm)+'</th><td class="num'+(lb.count>=2?' rd':'')+'">'+lb.count+'</td>';
   h+='<td class="barcell"><span class="bar rd" style="width:'+(lb.count/lmax*100).toFixed(1)+'%"></span></td></tr>';
  }
  h+='</tbody></table></div>';
+ if(lbRest.length){
+  var lbOnes=0;for(i=0;i<lbRest.length;i++){if(lbRest[i].count===1){lbOnes++;}}
+  h+='<details class="acc"><summary class="acc-sum">';
+  h+='<h3 class="subhead" style="margin:0;padding-right:1.8em">See all '+A.lb.distinct+' competing listings<span class="accmark" aria-hidden="true"></span></h3>';
+  h+='<p class="deck" style="margin-top:.4em">'+lbRest.length+(lbOnes===lbRest.length?' more with 1 map each':' more \u2014 '+lbOnes+' of them with 1 map each')+'</p>';
+  h+='</summary><div class="acc-body">';
+  h+='<div class="tblwrap"><table><caption>Standings continued \u00b7 listings '+(lbTopN.length+1)+'\u2013'+A.lb.distinct+' of '+A.lb.distinct+'</caption>';
+  h+='<thead><tr><th scope="col">Who holds #1 most often</th><th scope="col">Client maps led</th><th scope="col" class="barcell"></th></tr></thead><tbody>';
+  for(i=0;i<lbRest.length;i++){var lb2=lbRest[i];
+   h+='<tr><th scope="row">'+esc(lb2.nm)+'</th><td class="num'+(lb2.count>=2?' rd':'')+'">'+lb2.count+'</td>';
+   h+='<td class="barcell"><span class="bar rd" style="width:'+(lb2.count/lmax*100).toFixed(1)+'%"></span></td></tr>';
+  }
+  h+='</tbody></table></div>';
+  h+='</div></details>';
+ }
  if(A.lb.top.length){h+='<div class="notebox"><b>'+esc(A.lb.top[0].nm)+' alone holds #1 most often on '+A.lb.top[0].count+' of the '+NS+' client maps scanned.</b> The monthly invoice is buying visibility on maps someone else owns \u2014 and each client\u2019s page names who owns theirs, with the competitor report to prove it.</div>';}
  h+='</section>';
 
@@ -763,10 +796,154 @@ function splashV7(){
  h+='</section></footer>';
  return h;
 }
+/* ------------------------------------------------ v7 worst-to-best rank (directory default order + per-client story; v7 builds only)
+   Deterministic over the scanned clients: contested share ASC (0% first), then average map
+   position DESC (worse first), then reviews ASC, then name — #1 is the worst measured result,
+   #NS the best. Unscanned clients carry no rank: no scan, no rank. */
+var RANK={};
+(function(){
+ var rk=scanned.slice();
+ rk.sort(function(a,b){
+  return (ctSolv(a)-ctSolv(b))||(arpOf(b)-arpOf(a))||(a.reviews-b.reviews)||byName(a,b);
+ });
+ var i;for(i=0;i<rk.length;i++){RANK[rk[i].key]=i+1;}
+})();
+/* ------------------------------------------------ v7 per-client Chronicle story (v7 builds only)
+   Every figure comes from the client's own row + the validated aggregates; flagged pages
+   (suspension notice / hijacked capture) get no template, copy, defect or own-site speed
+   claims — their story leads with the flag instead. */
+function pullst(v,k,inked){return '<div class="pullstat"><div class="pv'+(inked?' inked':'')+'">'+v+'</div><div class="pk">'+k+'</div></div>';}
+function revword(n){var md=A.winners.scan_med_rev;if(n>md){return 'above';}if(n<md){return 'below';}return 'level with';}
+function storyV7(c){
+ var s=segOf(c);
+ var t=c.ct||null,tc=t?t.tc:null;
+ var kp=!!(c.fx&&c.fx.kp),ov=!!(c.fx&&c.fx.ov);
+ var m=strat(c,'m');
+ var f=(!kp&&!ov)?famOf(c):null;
+ var rk=RANK[c.key];
+ var F=A.fx;
+ var h='<div class="story">';
+ h+='<p class="kick">From the files \u00b7 '+esc(c.domain)+'</p>';
+
+ /* (a) the situation — their numbers as prose */
+ h+='<h3 class="subhead">The situation</h3>';
+ if(s==='NONE'||!t){
+  h+='<p class="sbody dropcap">No geo-grid scan has been run for this '+co(c)+', so this paper makes no map claim about it \u2014 in either direction \u2014 and it carries no rank in the worst-to-best book: no scan, no rank. What was measured is the website itself'+(m?', speed-tested as a phone visitor and a desktop visitor the same way as every site in the book':'')+', and the production line behind it.</p>';
+ }else{
+  var ownP='';
+  if(tc){
+   if(tc.self){ownP=' The listing that holds #1 most often on this map is this '+co(c)+'\u2019s own, at '+pct(tc.pct)+' of the points.';}
+   else{ownP=' The listing that actually owns this map is '+esc(tc.nm)+', holding #1 at '+pct(tc.pct)+' of the points \u2014 this '+co(c)+' holds #1 at '+(t.r1===0?'none of them':pct(t.r1/t.pins*100))+'.';}
+  }
+  var lead='';
+  if(kp){lead='The first fact in this file is not a ranking: this domain currently serves '+esc(AGENCY)+'\u2019s suspension notice, not a '+co(c)+' website. The Google listing was still measured like every other. ';}
+  else if(ov){lead='The first fact in this file is the hijack: this domain does not currently serve the '+co(c)+'\u2019s website at all \u2014 what a visitor gets today is an unrelated page, captured exactly as served. The '+co(c)+'\u2019s own Google listing is a different story. ';}
+  h+='<p class="sbody dropcap">'+lead+'Across the '+t.pins+' map points scanned around this '+co(c)+' for '+QP+', its listing shows in the top three at '+pct(t.solv)+' of them, at an average position of #'+posFmt(t.arp)+'.'+ownP+((s==='WINNER'&&c.ni&&c.ni.ph&&c.ni.solv>=50)?' It also holds a winning share of its niche phrase \u2014 '+pct(c.ni.solv)+' on \u201c'+esc(c.ni.ph)+'\u201d.':'')+' In this book\u2019s worst-to-best order that ranks #'+rk+' of '+NS+' \u2014 #1 the worst measured result, #'+NS+' the best.</p>';
+ }
+ h+='<div class="pullrow">';
+ if(s==='NONE'||!t){
+  h+=pullst(m?secs(m.lcp):'\u2014','phone load (LCP)',false);
+  h+=pullst(m?m.perf+'/100':'\u2014','phone PageSpeed',false);
+  h+=pullst(f?f.n+' sites':'unique','template, across the roster',true);
+ }else{
+  h+=pullst(pct(t.solv),'share of '+QP,false);
+  h+=pullst('#'+posFmt(t.arp),'average map position',false);
+  h+=pullst('#'+rk+' of '+NS,'worst-to-best rank',true);
+ }
+ h+='</div>';
+
+ /* (b) why that is bad — plain mechanics, parameterized with their numbers */
+ var wb='';
+ if(s==='NONE'||!t){
+  h+='<h3 class="subhead">The product itself</h3>';
+  if(m){
+   wb='Google\u2019s own bar for showing a page\u2019s main content is 2.5 seconds. On a phone this site takes '+secs(m.lcp)+'.'+(m.fcp>2500?' For the first '+secs(m.fcp)+' of that, nothing has painted at all \u2014 a '+cp(c)+' who taps through is staring at a blank screen.':'')+' The roster median is '+secs(A.psi.m.lcp)+' \u2014 this is the product the retainer buys, measured.';
+  }else{
+   wb='The speed tests could not read this site \u2014 the phone test and the desktop test both failed \u2014 so no speed claim is made about it.';
+  }
+ }else if(s==='WINNER'){
+  h+='<h3 class="subhead">Why that is rare</h3>';
+  wb='The map pack shows three results, and that is where '+cps(c)+' tap. At '+pct(t.solv)+', this listing is one of the three across most of its own map \u2014 the exception in this book: only '+A.winners.n+' of the '+NS+' '+E_VHOS+' scanned hold a winning share of '+QP+'.';
+  if(ov){wb+=' The website is the caveat: a '+cp(c)+' who taps through to this domain today lands on a page that has nothing to do with this '+co(c)+'.';}
+  else if(m&&m.lcp>2500){wb+=' The caveat is the website itself: Google\u2019s bar for showing main content is 2.5 seconds, and on a phone this site takes '+secs(m.lcp)+' \u2014 the ranking survives the site, not because of it.';}
+  else if(m){wb+=' On a phone the site shows its main content in '+secs(m.lcp)+' \u2014 inside Google\u2019s 2.5-second bar, against a roster median of '+secs(A.psi.m.lcp)+'.';}
+ }else{
+  h+='<h3 class="subhead">Why that is bad</h3>';
+  if(s==='INVISIBLE'){
+   wb='The map pack shows three results, and that is where '+cps(c)+' tap. A 0% share means this listing did not appear in that top three once \u2014 not at one of the '+t.pins+' points scanned around its own '+co(c)+'. A '+cp(c)+' searching '+QP+' from any of those points saw other names, every time.';
+  }else{
+   wb='The map pack shows three results, and that is where '+cps(c)+' tap. At '+pct(t.solv)+', this listing makes that cut on a fraction of its own map and misses it on the rest'+(t.arp>10?' \u2014 and an average position of #'+posFmt(t.arp)+' puts the typical result past position ten, outside anything a searcher sees first':(t.arp>3?' \u2014 and an average position of #'+posFmt(t.arp)+' sits outside the three positions a searcher sees first':''))+'.';
+  }
+  if(kp){
+   wb+=' The website compounds it: a '+cp(c)+' who finds this '+co(c)+' and taps through to its domain today reaches the agency\u2019s suspension notice instead of a '+co(c)+' website. No speed or on-page reading of \u201ctheir site\u201d is possible, because the page being served is not theirs.';
+  }else if(ov){
+   wb+=' The website compounds it: a '+cp(c)+' who taps through to this domain today lands on a page that has nothing to do with this '+co(c)+'. No speed reading of \u201ctheir site\u201d is made, because the page being served is not theirs.';
+  }else if(m&&m.lcp>2500){
+   wb+=' Then there is the website: Google\u2019s own bar for showing a page\u2019s main content is 2.5 seconds, and on a phone this site takes '+secs(m.lcp)+'.'+(m.fcp>2500?' For the first '+secs(m.fcp)+' of that, nothing has painted at all \u2014 the '+cp(c)+' is staring at a blank screen.':'');
+  }else if(m){
+   wb+=' The website, for its part, shows its main content in '+secs(m.lcp)+' on a phone \u2014 inside Google\u2019s 2.5-second bar, against a roster median of '+secs(A.psi.m.lcp)+'.';
+  }
+ }
+ h+='<p class="sbody">'+wb+'</p>';
+
+ /* (c) the production line — what "custom" actually was; winners inverted honestly */
+ if(kp){
+  h+='<h3 class="subhead">The production line</h3>';
+  h+='<p class="sbody">The template, copy and defect readings made for every other site in this book are not made here: the page this domain serves is the agency\u2019s notice, not the '+co(c)+'\u2019s work. What the notice does document is the arrangement \u2014 the agency controls the hosting, and the off switch. When it suspends an account, the '+co(c)+'\u2019s website is replaced by a notice pointing at the agency\u2019s own domain. The notice states no reason, and none is inferred here.</p>';
+ }else if(ov){
+  h+='<h3 class="subhead">The production line</h3>';
+  h+='<p class="sbody">No template, copy or defect reading is taken from a page that is not the '+co(c)+'\u2019s \u2014 and today this domain serves a page that is not the '+co(c)+'\u2019s. That is the production-line fact of this file: a paying client\u2019s own domain, serving someone else\u2019s page.</p>';
+ }else{
+  h+='<h3 class="subhead">'+(s==='WINNER'?'The production line \u2014 and what actually carries the rank':'The production line')+'</h3>';
+  var pl='';
+  if(f){pl+='The website behind these numbers is template '+famShort(f.id)+' \u2014 one build shared by '+f.n+' '+E_VHOS+' in this book'+(f.ag?', and by '+esc(AGENCY)+'\u2019s own homepage':'')+'.';}
+  else{pl+='The website behind these numbers runs a template no other roster site shares \u2014 one of the few in the book.';}
+  if(c.fx&&c.fx.ib>0){pl+=' '+c.fx.ib+' passage'+(c.fx.ib===1?'':'s')+' of 15+ words on this homepage appear'+(c.fx.ib===1?'s':'')+' word-for-word on other roster sites.';}
+  if(c.fx&&c.fx.tw){pl+=' Its closest text twin in the book is '+esc(c.fx.tw.d)+' \u2014 '+jpct(c.fx.tw.s)+' the same text.';}
+  if(c.fx&&c.fx.mkr){pl+=' The agency\u2019s fingerprint is in this site\u2019s own code'+(F.cssload!==null?' \u2014 across the roster, '+F.cssload+' sites load a stylesheet literally named <span class="filecode">'+esc(CSSFILE)+'</span>':'')+'.';}
+  if(s==='WINNER'){
+   pl+=' What this book\u2019s winners have in common is none of that \u2014 it is '+cp(c)+'-earned reviews (median among the '+A.winners.n+' winners: '+A.winners.med_rev+'). This '+co(c)+'\u2019s listing carries '+c.reviews+' of them, '+revword(c.reviews)+' the scanned-roster median of '+A.winners.scan_med_rev+' \u2014 an asset its '+cps(c)+' wrote one visit at a time, that belongs to the '+co(c)+' and moves with it.';
+  }else if(f){
+   pl+=' That is what the \u201ccustom\u201d work in the invoice actually was.';
+  }
+  h+='<p class="sbody">'+pl+'</p>';
+ }
+
+ /* (d) the retainer question — money-framed, no invented figures, and no billing-frequency
+    claims: there is no per-client billing source, so no card asserts how often the retainer
+    is billed (the masthead's second-person "your monthly retainer" is rhetorical, not a
+    per-client claim). Winner review counts are framed as what this book's winners share —
+    correlation, never per-client causation. */
+ h+='<h3 class="subhead">The retainer question</h3>';
+ var rq='',close='';
+ if(kp){
+  rq='This '+co(c)+' pays '+esc(AGENCY)+', and the retainer\u2019s most visible deliverable today is a suspension notice on the '+co(c)+'\u2019s own domain. The map numbers above belong to the listing; the website product is switched off \u2014 and the switch is the agency\u2019s.';
+  close='The clearest deliverable in this file is the off switch.';
+ }else if(ov&&s==='WINNER'){
+  rq='The listing side of this file is what a '+co(c)+' pays for: a winning share of its own map \u2014 and that ranking is the listing\u2019s, not the agency\u2019s work. What this book\u2019s winners share is '+cp(c)+'-earned reviews; this listing carries '+c.reviews+' of them, '+revword(c.reviews)+' the scanned-roster median of '+A.winners.scan_med_rev+'. The website side is the story \u2014 the domain on the invoice is serving someone else\u2019s page'+(m?', and the speed figures on this page measure that page, not the '+co(c)+'\u2019s website':'')+'.';
+  close='The '+co(c)+' earned its map. Its website product got hijacked.';
+ }else if(s==='WINNER'){
+  rq='What does the retainer buy a winner? The rank is carried by reviews the '+co(c)+'\u2019s own '+cps(c)+' wrote'+(f?'; the website on the invoice is one of '+f.n+' copies of the same template':'')+(m&&m.lcp>2500?'; the site takes '+secs(m.lcp)+' to show its content on a phone':'')+'. The asset doing the work belongs to the '+co(c)+' \u2014 and it moves with the '+co(c)+', to any provider or none.';
+  close='The rank is real \u2014 and the asset carrying it belongs to the '+co(c)+', not to the invoice.';
+ }else if(s==='PARTIAL'){
+  rq='This '+co(c)+' pays '+esc(AGENCY)+' for local visibility, and holds '+pct(t.solv)+' of its own map for '+QP+(tc&&!tc.self?' \u2014 while '+esc(tc.nm)+' holds the top spot on '+pct(tc.pct)+' of it':'')+'.'+(f?' The website on the invoice is one of '+f.n+' copies of the same template.':'')+(tc&&!tc.self?' The retainer renews; the top of the map stays someone else\u2019s.':' The retainer renews; most of the map stays out of reach.')+(ov?' And the website side is its own story \u2014 the domain on the invoice is serving someone else\u2019s page'+(m?', and the speed figures on this page measure that page, not the '+co(c)+'\u2019s website':'')+'.':'');
+  close=ov?'Its website product got hijacked \u2014 and the map was never won in the first place.':('Paying full price for '+pct(t.solv)+' of a map'+(tc&&!tc.self?' \u2014 '+esc(tc.nm)+' tops more of it than anyone':' \u2014 someone else keeps the rest')+'.');
+ }else if(s==='INVISIBLE'){
+  rq='This '+co(c)+' pays '+esc(AGENCY)+' for local visibility. On the phrase this book measures first \u2014 '+QP+' \u2014 the measured visibility on its own map is zero'+(f?', delivered on a website '+(f.n-1)+' other '+E_VHOS+' also received':'')+(tc&&!tc.self?', while '+esc(tc.nm)+' owns the map it is paying to appear on':'')+'. Whatever the invoice says the money buys, the '+t.pins+'-point scan could not find it.'+(ov?' And the website side is its own story \u2014 the domain on the invoice is serving someone else\u2019s page'+(m?', and the speed figures on this page measure that page, not the '+co(c)+'\u2019s website':'')+'.':'');
+  close=ov?'Its website product got hijacked \u2014 and the map was never won in the first place.':('An invoice for visibility that, on '+t.pins+' measured points, does not exist.');
+ }else{
+  rq='This '+co(c)+' pays '+esc(AGENCY)+' for marketing like the rest of the book. Until a scan runs, what the retainer buys on the map is unmeasured \u2014 and unclaimed here. What is measurable today is the deliverable itself: '+(ov?'a domain currently serving someone else\u2019s page \u2014 not the '+co(c)+'\u2019s website':(m?'a website that takes '+secs(m.lcp)+' to show its main content on a phone':'the website'))+(f?', built on a template '+(f.n-1)+' other '+E_VHOS+' in this book also received':'')+'.';
+  close=ov?'No scan, no map claim \u2014 and its website product got hijacked.':'No scan, no map claim \u2014 but the production line is already visible in the deliverable.';
+ }
+ h+='<p class="sbody">'+rq+'</p>';
+ h+='<div class="notebox"><b>'+close+'</b></div>';
+ h+='</div>';
+ return h;
+}
 
 
 /* ------------------------------------------------ directory (shared shell — mode branches baked at generation) */
-var state={q:'',seg:'ALL',st:'ALL',sort:'name'};
+var state={q:'',seg:'ALL',st:'ALL',sort:'wtb'};
 function byName(a,b){return a.name.localeCompare(b.name);}
 function cmpAsc(x,y){var xn=(x===null||x===undefined),yn=(y===null||y===undefined);if(xn&&yn){return 0;}if(xn){return 1;}if(yn){return -1;}return x-y;}
 function cmpDesc(x,y){var xn=(x===null||x===undefined),yn=(y===null||y===undefined);if(xn&&yn){return 0;}if(xn){return 1;}if(yn){return -1;}return y-x;}
@@ -788,6 +965,15 @@ SORTS4['fam']=function(a,b){
  if(ia>ib){return 1;}
  return byName(a,b);
 };
+/* v7 default order: worst to best by precomputed rank; the two unscanned rows pin to the
+   very bottom — no scan, no rank. */
+SORTS4['wtb']=function(a,b){
+ var ra=RANK[a.key],rb=RANK[b.key];
+ if(ra===undefined&&rb===undefined){return byName(a,b);}
+ if(ra===undefined){return 1;}
+ if(rb===undefined){return -1;}
+ return ra-rb;
+};
 function applyFilters(){
  var q=state.q.toLowerCase().trim();
  var out=C.filter(function(c){
@@ -803,6 +989,10 @@ function applyFilters(){
 function rowHTML4(c){
  var loc=(c.city?esc(c.city)+(c.state?', '+esc(c.state):''):'\u2014');
  var h='<a class="row" href="#/client/'+encodeURIComponent(c.key)+'">';
+ if(state.sort==='wtb'){
+  var rk7=RANK[c.key];
+  h+=(rk7!==undefined)?'<span class="rankchip">#'+rk7+' of '+NS+'</span>':'<span class="rankchip un">no scan \u2014 no rank</span>';
+ }
  h+=logoTile(c.lg,c.name,true);
  h+='<span class="row-id"><span class="row-name">'+esc(c.name)+'</span><span class="row-loc">'+loc+' \u00b7 '+esc(c.domain)+'</span>';
  if(c.ct&&c.ct.tc){
@@ -853,7 +1043,7 @@ function renderDirectory(){
  for(i=0;i<keys.length;i++){h+='<option value="'+keys[i]+'"'+(state.st===keys[i]?' selected':'')+'>'+keys[i]+' ('+states[keys[i]]+')</option>';}
  h+='</select>';
  h+='<select id="sortsel" class="sel" aria-label="Sort">';
- var sorts=[['name','A \u2192 Z'],['fam','Template family'],['ct-asc','Lowest share of the phrase'],['ct-desc','Highest share of the phrase'],['arp-desc','Worst average position'],['lcp-desc','Slowest load (LCP)'],['psi-asc','Slowest PageSpeed'],['rev-desc','Most reviews']];
+ var sorts=[['wtb','Worst \u2192 best'],['name','A \u2192 Z'],['fam','Template family'],['ct-asc','Lowest share of the phrase'],['ct-desc','Highest share of the phrase'],['arp-desc','Worst average position'],['lcp-desc','Slowest load (LCP)'],['psi-asc','Slowest PageSpeed'],['rev-desc','Most reviews']];
  for(i=0;i<sorts.length;i++){h+='<option value="'+sorts[i][0]+'"'+(state.sort===sorts[i][0]?' selected':'')+'>'+sorts[i][1]+'</option>';}
  h+='</select></div>';
  h+='<div class="chips" role="group" aria-label="Filter by outcome">';
@@ -1089,6 +1279,7 @@ function profileV4(c){
  h+='<div class="verdict"><p>'+verdict4(c)+'</p></div>';
  if(c.fx&&c.fx.kp){h+='<div class="note"><p style="margin:0"><strong>This domain currently serves the agency\u2019s suspension notice</strong> \u2014 shown below, captured '+esc(DATA.generated)+'. Site-level readings on this page describe the currently-served page, not a '+co(c)+' website.</p></div>';}
  else if(c.fx&&c.fx.ov){h+='<div class="note"><p style="margin:0"><strong>This domain does not currently serve the '+co(c)+'\u2019s website.</strong> The homepage captured '+esc(DATA.generated)+' \u2014 shown below \u2014 is an unrelated page now being served on this domain. Site-level readings on this page describe that page, not the '+co(c)+'\u2019s work.</p></div>';}
+ h+=storyV7(c);
  h+='<div class="pcards">';
  h+=shotsPanel(c);
  h+=mapPanel4(c);
