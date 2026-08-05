@@ -1,8 +1,10 @@
 <!doctype html>
 <html lang="en">
-<head><meta name="robots" content="noindex,nofollow">
+<head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAALUlEQVR42mP48u4eSYiBHA0nWfiJRINXA+1DSVxYAA1B5LCK49MwrG2gbTwAAFEyzezHzricAAAAAElFTkSuQmCC">
 <title>DemandBoost — Client Results Dossier</title>
 <style>
 :root{
@@ -53,7 +55,7 @@ section.thin{border-top:1px solid var(--ink)}
 .mast-rules{border-top:1px solid var(--ink);border-bottom:4px solid var(--ink);margin-top:clamp(8px,1.6vw,16px);padding:5px 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.3em 1.4em;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
 #hero{border-top:0;padding-top:clamp(18px,3vw,40px)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,290px);gap:clamp(18px,3vw,44px);align-items:start}
-.mega{font-family:var(--head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;font-size:clamp(2.5rem,7.6vw,7.4rem);white-space:nowrap;margin:0}
+.mega{font-family:var(--head);font-weight:900;text-transform:uppercase;line-height:.88;letter-spacing:-.01em;font-size:clamp(2.5rem,7.6vw,7.4rem);white-space:nowrap;text-wrap:balance;margin:0}
 .mega .l2{color:var(--red)}
 .hero-sub{margin-top:clamp(12px,2vw,22px);font-style:italic;font-size:clamp(1.05rem,2vw,1.5rem);line-height:1.4;max-width:56ch}
 .burst{width:clamp(150px,16vw,210px);aspect-ratio:1;border-radius:50%;background:var(--red);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;transform:rotate(-7deg);gap:.1em;box-shadow:0 0 0 4px var(--paper),0 0 0 6px var(--red);margin:clamp(10px,2vw,20px) 0 0 auto}
@@ -271,6 +273,33 @@ html[data-bp=s] .duo{grid-template-columns:1fr}
 html[data-bp=s] .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
 html[data-bp=s] .stat{border-right:0;border-bottom:1px solid var(--ink-faint)}
 html[data-bp=s] .stat:nth-child(odd){border-right:1px solid var(--ink-faint)}
+/* ------ v7.3 client-card FRONT-PAGE arrangement (additive only — every splash/directory rule above is untouched) */
+.filebar{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin:10px 0 clamp(16px,2.4vw,28px)}
+.filebar .kick{margin:0 0 6px}
+.fh-name{font-family:var(--head);font-weight:900;text-transform:uppercase;font-size:clamp(1.35rem,2.6vw,2.1rem);line-height:1;letter-spacing:.01em;overflow-wrap:anywhere}
+.filebar .prof-loc{margin-top:8px}
+.file-hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,290px);gap:clamp(18px,3vw,44px);align-items:start}
+.file-hero>*{min-width:0}
+.file-mega{white-space:normal}
+.file-deck{margin-top:clamp(12px,2vw,22px);font-style:italic;font-size:clamp(1.05rem,2vw,1.5rem);line-height:1.4;max-width:56ch}
+.fileband{border-top:4px solid var(--ink);border-bottom:1px solid var(--ink);padding:0}
+.fileband .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+.filecopy{column-count:2;column-gap:clamp(18px,2.6vw,34px);column-rule:1px solid var(--ink-faint);font-size:.95rem;text-align:justify;hyphens:auto;margin-top:.8em;max-width:110ch}
+.filecopy p{margin-bottom:.85em;max-width:none;overflow-wrap:anywhere}
+.filecopy p.dropcap::first-letter{font-family:var(--head);font-weight:900;font-size:4.1em;float:left;line-height:.8;padding:.04em .12em 0 0;color:var(--red)}
+.file-ex .ex-tag{max-width:100%;overflow-wrap:anywhere}
+/* exhibit pair: asymmetric columns sized so the 16:9 desktop frame and the tall phone frame
+   render at equal height (1280/720 vs 390/844 aspect => 3.85:1 widths) — no dead space below
+   the desktop capture; stacks to one column on m/s below */
+.file-ex .shotrow{grid-template-columns:minmax(0,3.85fr) minmax(min(100%,160px),1fr)}
+.pcard .ph{background:var(--ink);color:var(--paper);padding:.55em .8em;margin:-20px -20px 16px;letter-spacing:.14em}
+.pcards{grid-template-columns:repeat(3,minmax(0,1fr))}
+#f-b1,#f-b2,#f-b3,#f-b4,#f-exhibits,#f-panels{scroll-margin-top:56px}
+html[data-bp=t] .pcards{grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-bp=m] .pcards,html[data-bp=s] .pcards{grid-template-columns:1fr}
+html[data-bp=m] .file-hero,html[data-bp=s] .file-hero{grid-template-columns:1fr}
+html[data-bp=m] .file-ex .shotrow,html[data-bp=s] .file-ex .shotrow{grid-template-columns:1fr}
+html[data-bp=s] .filecopy{column-count:1}
 </style>
 </head>
 <body>
@@ -808,11 +837,148 @@ var RANK={};
  });
  var i;for(i=0;i<rk.length;i++){RANK[rk[i].key]=i+1;}
 })();
-/* ------------------------------------------------ v7 per-client Chronicle story (v7 builds only)
-   Every figure comes from the client's own row + the validated aggregates; flagged pages
-   (suspension notice / hijacked capture) get no template, copy, defect or own-site speed
-   claims — their story leads with the flag instead. */
-function pullst(v,k,inked){return '<div class="pullstat"><div class="pv'+(inked?' inked':'')+'">'+v+'</div><div class="pk">'+k+'</div></div>';}
+/* ------------------------------------------------ v7.3 per-client Chronicle FRONT PAGE (v7 builds only)
+   The card is arranged like the splash: identity kicker block, a deterministic mega stacked
+   grabber headline generated from the row (segment variants; kill-page / hijack / dual-winner
+   override), the key stat as the red burst, a 3-stat docket band, the story in ruled newspaper
+   columns under front-page-scale crossheads, the captures framed as an exhibit, and the data
+   panels in the front-page grid rhythm. Every story sentence, panel datum and link is the
+   v7.2 text verbatim — the only new text is the generated headline/deck and caption-voice
+   labels. Every figure comes from the client's own row + the validated aggregates; flagged
+   pages (suspension notice / hijacked capture) get no template, copy, defect or own-site
+   speed claims — their headline and story lead with the flag instead. */
+function headB(c){
+ var s=segOf(c),t=c.ct||null;
+ if(s==='NONE'||!t){return 'The product itself';}
+ if(s==='WINNER'){return 'Why that is rare';}
+ return 'Why that is bad';
+}
+function headC(c){
+ var kp=!!(c.fx&&c.fx.kp),ov=!!(c.fx&&c.fx.ov);
+ if(kp||ov){return 'The production line';}
+ return segOf(c)==='WINNER'?'The production line \u2014 and what actually carries the rank':'The production line';
+}
+/* the headline engine — deterministic, registry-generic, client-innocent: the agency is the
+   subject of every accusation, and every number is the row's own, through the page formatters. */
+/* orphan control for the generated mega lines: the last space of each stacked line becomes a
+   no-break space, so a line that soft-wraps can never leave a single word alone on its own
+   visual line (paired with text-wrap:balance on .mega for even wrapped-line lengths). */
+function nbLast(s){var i=s.lastIndexOf(' ');return i<0?s:s.slice(0,i)+'\u00a0'+s.slice(i+1);}
+function megaV7(c){
+ var s=segOf(c),t=c.ct||null,tc=t?t.tc:null;
+ var kp=!!(c.fx&&c.fx.kp),ov=!!(c.fx&&c.fx.ov);
+ var m=strat(c,'m');
+ if(kp){
+  return {l1:'Their domain.',l2:'The agency\u2019s',l3:'off switch.',
+   deck:'This domain serves '+esc(AGENCY)+'\u2019s suspension notice today \u2014 not a '+co(c)+' website'+(t?'. The Google listing was still measured: '+pct(t.solv)+' of '+QP+', average map position #'+posFmt(t.arp)+'.':'.')};
+ }
+ if(ov){
+  /* the contrast clause is a BRIGHT SPOT and only true as one when the listing actually wins
+     its map (share >= 50, the page's own winning bar); at low shares it becomes a neutral
+     factual clause — same row numbers, no false silver lining. */
+  return {l1:'Hijacked.',l2:'A paying client\u2019s',l3:'own domain.',
+   deck:'The domain on the invoice serves someone else\u2019s page today'+(t?(t.solv>=50?' \u2014 while the '+co(c)+'\u2019s own listing holds '+pct(t.solv)+' of '+QP+' on its map.':' \u2014 the listing itself still stands on the map, at '+pct(t.solv)+' of '+QP+'.'):'.')};
+ }
+ if(s==='WINNER'&&c.ni&&c.ni.ph&&c.ni.solv>=50){
+  return {l1:pct(t.solv)+' + '+pct(c.ni.solv)+' \u2014',l2:'and neither is',l3:'the agency.',
+   deck:'A winning share of both phrases \u2014 '+pct(t.solv)+' of '+QP+' and '+pct(c.ni.solv)+' on \u201c'+esc(c.ni.ph)+'\u201d \u2014 on '+c.reviews+' reviews its '+cps(c)+' wrote.'};
+ }
+ if(s==='WINNER'){
+  return {l1:pct(t.solv)+' \u2014',l2:'and it isn\u2019t',l3:'the agency.',
+   deck:'One of only '+A.winners.n+' of the '+NS+' '+E_VHOS+' scanned to hold a winning share of '+QP+' \u2014 on '+c.reviews+' reviews its '+cps(c)+' wrote.'};
+ }
+ if(s==='PARTIAL'){
+  return {l1:pct(t.solv),l2:'of a map they',l3:'pay full price for.',
+   deck:'At '+pct(t.solv)+' of '+QP+', this listing makes the top three on a fraction of its own map'+((tc&&!tc.self)?' \u2014 '+esc(tc.nm)+' holds the #1 spot on '+pct(tc.pct)+' of it':'')+'. Average map position: #'+posFmt(t.arp)+'.'};
+ }
+ if(s==='INVISIBLE'){
+  return {l1:pct(t.solv),l2:'of their own map.',l3:null,
+   deck:'Not one top-three appearance for '+QP+' at any of the '+t.pins+' points scanned around this '+co(c)+((tc&&!tc.self)?' \u2014 the listing that owns this map is '+esc(tc.nm)+', at '+pct(tc.pct)+' of the points.':'.')};
+ }
+ return {l1:'No scan.',l2:'No claim.',l3:'No rank.',
+  deck:'No geo-grid scan has been run for this '+co(c)+' \u2014 no map claim is made about it, in either direction. What was measured is the website itself'+(m?': '+secs(m.lcp)+' to show its main content on a phone.':'.')};
+}
+/* the key stat as the red burst — the row's own number through the page formatters */
+function burstV7(c){
+ var t=c.ct||null,m=strat(c,'m');
+ var v,l;
+ if(t){v=pct(t.solv);l='of '+QP+' on its own map';}
+ else if(m){v=secs(m.lcp);l='to show main content on a phone';}
+ else{v=String(c.reviews);l='reviews on its listing';}
+ return '<div class="burst" role="img" aria-label="'+v+' '+l+'"><span class="b-num">'+v+'</span><span class="b-lbl">'+l+'</span></div>';
+}
+/* the In-this-file index — mirrors the splash index box; scrolls in place, never re-routes */
+function fileIndexV7(c){
+ var items=[['f-b1','The situation'],['f-b2',headB(c)],['f-b3','The production line'],['f-b4','The retainer question']];
+ if(c.sh){items.push(['f-exhibits','The exhibits']);}
+ items.push(['f-panels','The data panels']);
+ var h='<div class="index-box" style="margin-top:clamp(14px,2vw,22px)"><h4>In this file</h4><ol>';
+ var i;for(i=0;i<items.length;i++){h+='<li><a href="#" data-fscroll="'+items[i][0]+'"><span class="ix-t">'+items[i][1]+'</span><span class="ix-n">B'+(i+1)+'</span></a></li>';}
+ h+='</ol></div>';
+ return h;
+}
+document.addEventListener('click',function(ev){
+ var t=ev.target;
+ while(t&&t.getAttribute){
+  var id=t.getAttribute('data-fscroll');
+  if(id){ev.preventDefault();var el=document.getElementById(id);if(el){el.scrollIntoView();}return;}
+  t=t.parentNode;
+ }
+});
+/* splash-style stack fit: each authored mega line renders as EXACTLY one visual line (the
+   deliberate <br> stack, like the splash hero); if the widest line would overflow the column
+   the whole headline scales down proportionally — a generated line can never wrap a lone
+   word onto its own line. Re-run on resize; the no-JS-path fallback stays .file-mega's normal
+   wrapping with text-wrap:balance + the nbLast no-break joins. */
+function fitFileMega(){
+ var el=document.querySelector('h1.file-mega');if(!el){return;}
+ el.style.whiteSpace='nowrap';el.style.fontSize='';
+ var w=el.clientWidth,sw=el.scrollWidth;
+ if(w>0&&sw>w){var cs=parseFloat(getComputedStyle(el).fontSize);el.style.fontSize=(Math.floor(cs*(w/sw)*0.99*10)/10)+'px';}
+}
+window.addEventListener('resize',fitFileMega);
+/* the docket stat band — the story's three pull-stats, set in the front page's band */
+function bandV7(c){
+ var s=segOf(c),t=c.ct||null;
+ var m=strat(c,'m');
+ var kp=!!(c.fx&&c.fx.kp),ov=!!(c.fx&&c.fx.ov);
+ var f=(!kp&&!ov)?famOf(c):null;
+ var rk=RANK[c.key];
+ var h='<section class="fileband" aria-label="Key numbers in this file"><dl class="stats">';
+ if(s==='NONE'||!t){
+  h+=bstat(m?secs(m.lcp):'\u2014','phone load (LCP)','',true);
+  h+=bstat(m?m.perf+'/100':'\u2014','phone PageSpeed','',true);
+  h+=bstat(f?f.n+' sites':'unique','template, across the roster','',false);
+ }else{
+  h+=bstat(pct(t.solv),'share of '+QP,'',true);
+  h+=bstat('#'+posFmt(t.arp),'average map position','',true);
+  h+=bstat('#'+rk+' of '+NS,'worst-to-best rank','',false);
+ }
+ h+='</dl></section>';
+ return h;
+}
+/* the captures as an exhibit — same texts as the v7.2 shots panel, in the front-page frame */
+function exhibitV7(c){
+ if(!c.sh){return '';}
+ var kp=!!(c.fx&&c.fx.kp),ov=!!(c.fx&&c.fx.ov),mkr=!!(c.fx&&c.fx.mkr);
+ var ph;
+ if(kp||ov){ph='What this domain serves today \u00b7 captured '+esc(DATA.generated);}
+ else if(mkr){ph='The site '+esc(AGENCY)+' runs for this '+co(c)+' \u00b7 captured '+esc(DATA.generated);}
+ else{ph='This '+co(c)+'\u2019s homepage \u00b7 captured '+esc(DATA.generated);}
+ var cap;
+ if(kp){cap='The agency\u2019s suspension notice this domain currently serves \u2014 shown exactly as captured, desktop and phone, the same day as every other site in this book.';}
+ else if(ov){cap='This domain did not serve the '+co(c)+'\u2019s website when captured \u2014 the page shown is what a visitor gets today, unrelated to the '+co(c)+'. Captured the same day, the same way, as every other site in this book.';}
+ else{cap='Homepage above the fold, exactly as a visitor sees it \u2014 desktop and phone, captured the same day as every other site in this book.';}
+ var h='<section id="f-exhibits" class="file-ex"><p class="kick">B5 \u00b7 The exhibits</p>';
+ h+='<aside class="exhibit"><span class="ex-tag">'+ph+'</span>';
+ h+='<div class="shotrow">';
+ h+=shotFrame(c.sh.d,'shot-d','Desktop','Desktop capture of '+c.domain);
+ h+=shotFrame(c.sh.m,'shot-m','Phone','Phone capture of '+c.domain);
+ h+='</div>';
+ h+='<p class="shotcap">'+cap+'</p>';
+ h+='</aside></section>';
+ return h;
+}
 function revword(n){var md=A.winners.scan_med_rev;if(n>md){return 'above';}if(n<md){return 'below';}return 'level with';}
 function storyV7(c){
  var s=segOf(c);
@@ -822,13 +988,14 @@ function storyV7(c){
  var f=(!kp&&!ov)?famOf(c):null;
  var rk=RANK[c.key];
  var F=A.fx;
- var h='<div class="story">';
- h+='<p class="kick">From the files \u00b7 '+esc(c.domain)+'</p>';
+ var h='';
 
- /* (a) the situation — their numbers as prose */
- h+='<h3 class="subhead">The situation</h3>';
+ /* (a) B1 — the situation: front-page crosshead, ruled columns, drop cap (text verbatim) */
+ h+='<section id="f-b1"><p class="kick">B1 \u00b7 From the files \u00b7 '+esc(c.domain)+'</p>';
+ h+='<h2 class="headline">The situation</h2>';
+ h+='<div class="filecopy">';
  if(s==='NONE'||!t){
-  h+='<p class="sbody dropcap">No geo-grid scan has been run for this '+co(c)+', so this paper makes no map claim about it \u2014 in either direction \u2014 and it carries no rank in the worst-to-best book: no scan, no rank. What was measured is the website itself'+(m?', speed-tested as a phone visitor and a desktop visitor the same way as every site in the book':'')+', and the production line behind it.</p>';
+  h+='<p class="dropcap">No geo-grid scan has been run for this '+co(c)+', so this paper makes no map claim about it \u2014 in either direction \u2014 and it carries no rank in the worst-to-best book: no scan, no rank. What was measured is the website itself'+(m?', speed-tested as a phone visitor and a desktop visitor the same way as every site in the book':'')+', and the production line behind it.</p>';
  }else{
   var ownP='';
   if(tc){
@@ -838,37 +1005,26 @@ function storyV7(c){
   var lead='';
   if(kp){lead='The first fact in this file is not a ranking: this domain currently serves '+esc(AGENCY)+'\u2019s suspension notice, not a '+co(c)+' website. The Google listing was still measured like every other. ';}
   else if(ov){lead='The first fact in this file is the hijack: this domain does not currently serve the '+co(c)+'\u2019s website at all \u2014 what a visitor gets today is an unrelated page, captured exactly as served. The '+co(c)+'\u2019s own Google listing is a different story. ';}
-  h+='<p class="sbody dropcap">'+lead+'Across the '+t.pins+' map points scanned around this '+co(c)+' for '+QP+', its listing shows in the top three at '+pct(t.solv)+' of them, at an average position of #'+posFmt(t.arp)+'.'+ownP+((s==='WINNER'&&c.ni&&c.ni.ph&&c.ni.solv>=50)?' It also holds a winning share of its niche phrase \u2014 '+pct(c.ni.solv)+' on \u201c'+esc(c.ni.ph)+'\u201d.':'')+' In this book\u2019s worst-to-best order that ranks #'+rk+' of '+NS+' \u2014 #1 the worst measured result, #'+NS+' the best.</p>';
+  h+='<p class="dropcap">'+lead+'Across the '+t.pins+' map points scanned around this '+co(c)+' for '+QP+', its listing shows in the top three at '+pct(t.solv)+' of them, at an average position of #'+posFmt(t.arp)+'.'+ownP+((s==='WINNER'&&c.ni&&c.ni.ph&&c.ni.solv>=50)?' It also holds a winning share of its niche phrase \u2014 '+pct(c.ni.solv)+' on \u201c'+esc(c.ni.ph)+'\u201d.':'')+' In this book\u2019s worst-to-best order that ranks #'+rk+' of '+NS+' \u2014 #1 the worst measured result, #'+NS+' the best.</p>';
  }
- h+='<div class="pullrow">';
- if(s==='NONE'||!t){
-  h+=pullst(m?secs(m.lcp):'\u2014','phone load (LCP)',false);
-  h+=pullst(m?m.perf+'/100':'\u2014','phone PageSpeed',false);
-  h+=pullst(f?f.n+' sites':'unique','template, across the roster',true);
- }else{
-  h+=pullst(pct(t.solv),'share of '+QP,false);
-  h+=pullst('#'+posFmt(t.arp),'average map position',false);
-  h+=pullst('#'+rk+' of '+NS,'worst-to-best rank',true);
- }
- h+='</div>';
+ h+='</div></section>';
 
- /* (b) why that is bad — plain mechanics, parameterized with their numbers */
+ /* (b) B2 — why that is bad: plain mechanics, parameterized with their numbers (text verbatim;
+    the three pull-stats moved to the docket band above) */
+ h+='<section id="f-b2" class="thin"><p class="kick">B2 \u00b7 The mechanics</p><h2 class="headline">'+headB(c)+'</h2>';
  var wb='';
  if(s==='NONE'||!t){
-  h+='<h3 class="subhead">The product itself</h3>';
   if(m){
    wb='Google\u2019s own bar for showing a page\u2019s main content is 2.5 seconds. On a phone this site takes '+secs(m.lcp)+'.'+(m.fcp>2500?' For the first '+secs(m.fcp)+' of that, nothing has painted at all \u2014 a '+cp(c)+' who taps through is staring at a blank screen.':'')+' The roster median is '+secs(A.psi.m.lcp)+' \u2014 this is the product the retainer buys, measured.';
   }else{
    wb='The speed tests could not read this site \u2014 the phone test and the desktop test both failed \u2014 so no speed claim is made about it.';
   }
  }else if(s==='WINNER'){
-  h+='<h3 class="subhead">Why that is rare</h3>';
   wb='The map pack shows three results, and that is where '+cps(c)+' tap. At '+pct(t.solv)+', this listing is one of the three across most of its own map \u2014 the exception in this book: only '+A.winners.n+' of the '+NS+' '+E_VHOS+' scanned hold a winning share of '+QP+'.';
   if(ov){wb+=' The website is the caveat: a '+cp(c)+' who taps through to this domain today lands on a page that has nothing to do with this '+co(c)+'.';}
   else if(m&&m.lcp>2500){wb+=' The caveat is the website itself: Google\u2019s bar for showing main content is 2.5 seconds, and on a phone this site takes '+secs(m.lcp)+' \u2014 the ranking survives the site, not because of it.';}
   else if(m){wb+=' On a phone the site shows its main content in '+secs(m.lcp)+' \u2014 inside Google\u2019s 2.5-second bar, against a roster median of '+secs(A.psi.m.lcp)+'.';}
  }else{
-  h+='<h3 class="subhead">Why that is bad</h3>';
   if(s==='INVISIBLE'){
    wb='The map pack shows three results, and that is where '+cps(c)+' tap. A 0% share means this listing did not appear in that top three once \u2014 not at one of the '+t.pins+' points scanned around its own '+co(c)+'. A '+cp(c)+' searching '+QP+' from any of those points saw other names, every time.';
   }else{
@@ -884,17 +1040,15 @@ function storyV7(c){
    wb+=' The website, for its part, shows its main content in '+secs(m.lcp)+' on a phone \u2014 inside Google\u2019s 2.5-second bar, against a roster median of '+secs(A.psi.m.lcp)+'.';
   }
  }
- h+='<p class="sbody">'+wb+'</p>';
+ h+='<div class="filecopy"><p>'+wb+'</p></div></section>';
 
- /* (c) the production line — what "custom" actually was; winners inverted honestly */
+ /* (c) B3 — the production line: what "custom" actually was; winners inverted honestly (text verbatim) */
+ h+='<section id="f-b3" class="thin"><p class="kick">B3 \u00b7 Behind the deliverable</p><h2 class="headline">'+headC(c)+'</h2>';
  if(kp){
-  h+='<h3 class="subhead">The production line</h3>';
-  h+='<p class="sbody">The template, copy and defect readings made for every other site in this book are not made here: the page this domain serves is the agency\u2019s notice, not the '+co(c)+'\u2019s work. What the notice does document is the arrangement \u2014 the agency controls the hosting, and the off switch. When it suspends an account, the '+co(c)+'\u2019s website is replaced by a notice pointing at the agency\u2019s own domain. The notice states no reason, and none is inferred here.</p>';
+  h+='<div class="filecopy"><p>The template, copy and defect readings made for every other site in this book are not made here: the page this domain serves is the agency\u2019s notice, not the '+co(c)+'\u2019s work. What the notice does document is the arrangement \u2014 the agency controls the hosting, and the off switch. When it suspends an account, the '+co(c)+'\u2019s website is replaced by a notice pointing at the agency\u2019s own domain. The notice states no reason, and none is inferred here.</p></div>';
  }else if(ov){
-  h+='<h3 class="subhead">The production line</h3>';
-  h+='<p class="sbody">No template, copy or defect reading is taken from a page that is not the '+co(c)+'\u2019s \u2014 and today this domain serves a page that is not the '+co(c)+'\u2019s. That is the production-line fact of this file: a paying client\u2019s own domain, serving someone else\u2019s page.</p>';
+  h+='<div class="filecopy"><p>No template, copy or defect reading is taken from a page that is not the '+co(c)+'\u2019s \u2014 and today this domain serves a page that is not the '+co(c)+'\u2019s. That is the production-line fact of this file: a paying client\u2019s own domain, serving someone else\u2019s page.</p></div>';
  }else{
-  h+='<h3 class="subhead">'+(s==='WINNER'?'The production line \u2014 and what actually carries the rank':'The production line')+'</h3>';
   var pl='';
   if(f){pl+='The website behind these numbers is template '+famShort(f.id)+' \u2014 one build shared by '+f.n+' '+E_VHOS+' in this book'+(f.ag?', and by '+esc(AGENCY)+'\u2019s own homepage':'')+'.';}
   else{pl+='The website behind these numbers runs a template no other roster site shares \u2014 one of the few in the book.';}
@@ -906,7 +1060,7 @@ function storyV7(c){
   }else if(f){
    pl+=' That is what the \u201ccustom\u201d work in the invoice actually was.';
   }
-  h+='<p class="sbody">'+pl+'</p>';
+  h+='<div class="filecopy"><p>'+pl+'</p></div>';
  }
 
  /* (d) the retainer question — money-framed, no invented figures, and no billing-frequency
@@ -914,7 +1068,8 @@ function storyV7(c){
     is billed (the masthead's second-person "your monthly retainer" is rhetorical, not a
     per-client claim). Winner review counts are framed as what this book's winners share —
     correlation, never per-client causation. */
- h+='<h3 class="subhead">The retainer question</h3>';
+ h+='</section>';
+ h+='<section id="f-b4" class="thin"><p class="kick">B4 \u00b7 Follow the money</p><h2 class="headline">The retainer question</h2>';
  var rq='',close='';
  if(kp){
   rq='This '+co(c)+' pays '+esc(AGENCY)+', and the retainer\u2019s most visible deliverable today is a suspension notice on the '+co(c)+'\u2019s own domain. The map numbers above belong to the listing; the website product is switched off \u2014 and the switch is the agency\u2019s.';
@@ -935,9 +1090,9 @@ function storyV7(c){
   rq='This '+co(c)+' pays '+esc(AGENCY)+' for marketing like the rest of the book. Until a scan runs, what the retainer buys on the map is unmeasured \u2014 and unclaimed here. What is measurable today is the deliverable itself: '+(ov?'a domain currently serving someone else\u2019s page \u2014 not the '+co(c)+'\u2019s website':(m?'a website that takes '+secs(m.lcp)+' to show its main content on a phone':'the website'))+(f?', built on a template '+(f.n-1)+' other '+E_VHOS+' in this book also received':'')+'.';
   close=ov?'No scan, no map claim \u2014 and its website product got hijacked.':'No scan, no map claim \u2014 but the production line is already visible in the deliverable.';
  }
- h+='<p class="sbody">'+rq+'</p>';
+ h+='<div class="filecopy"><p>'+rq+'</p></div>';
  h+='<div class="notebox"><b>'+close+'</b></div>';
- h+='</div>';
+ h+='</section>';
  return h;
 }
 
@@ -1208,24 +1363,6 @@ function techPanel4(c){
  h+='<p>What this '+co(c)+'\u2019s website ships with \u2014 the basics a marketing provider is billed to handle.</p></div>';
  return h;
 }
-function shotsPanel(c){
- if(!c.sh){return '';}
- var kp=!!(c.fx&&c.fx.kp),ov=!!(c.fx&&c.fx.ov),mkr=!!(c.fx&&c.fx.mkr);
- var ph;
- if(kp||ov){ph='What this domain serves today \u00b7 captured '+esc(DATA.generated);}
- else if(mkr){ph='The site '+esc(AGENCY)+' runs for this '+co(c)+' \u00b7 captured '+esc(DATA.generated);}
- else{ph='This '+co(c)+'\u2019s homepage \u00b7 captured '+esc(DATA.generated);}
- var h='<div class="pcard pcard-wide"><p class="ph">'+ph+'</p>';
- h+='<div class="shotrow">';
- h+=shotFrame(c.sh.d,'shot-d','Desktop','Desktop capture of '+c.domain);
- h+=shotFrame(c.sh.m,'shot-m','Phone','Phone capture of '+c.domain);
- h+='</div>';
- if(kp){h+='<p>The agency\u2019s suspension notice this domain currently serves \u2014 shown exactly as captured, desktop and phone, the same day as every other site in this book.</p>';}
- else if(ov){h+='<p>This domain did not serve the '+co(c)+'\u2019s website when captured \u2014 the page shown is what a visitor gets today, unrelated to the '+co(c)+'. Captured the same day, the same way, as every other site in this book.</p>';}
- else{h+='<p>Homepage above the fold, exactly as a visitor sees it \u2014 desktop and phone, captured the same day as every other site in this book.</p>';}
- h+='</div>';
- return h;
-}
 function mkLabel(k){
  if(k==='multiple_h1'){return 'More than one main headline (H1) \u2014 muddles what the page is about';}
  if(k==='missing_h1'){return 'No H1 heading at all';}
@@ -1270,18 +1407,39 @@ function fxPanel(c){
  h+='</div>';
  return h;
 }
+/* v7.3 client card — a full Chronicle FRONT PAGE: identity kicker block, the generated mega
+   headline + deck, the red burst + In-this-file index, the docket band, the verdict, the story
+   in front-page sections, the exhibit, and the data panels in the front-page grid rhythm.
+   Every v7.2 sentence, datum and link is kept verbatim; only the arrangement (and the generated
+   headline/deck + caption-voice labels) is new. */
 function profileV4(c){
+ var MH=megaV7(c);
  var h='<section style="border-top:0" class="profile">';
  h+='<a class="back" href="#/directory">\u2190 All '+A.total+' clients</a>';
- h+='<p class="eyebrow">Client dossier \u00b7 '+esc(c.domain)+'</p>';
- h+='<h1>'+esc(c.name)+'</h1>';
- h+='<div class="prof-loc">'+logoTile(c.lg,c.name,false)+badge(c,true)+'<span>'+(c.city?esc(c.city)+(c.state?', '+esc(c.state):''):'location not on file')+'</span>'+(c.gbp?'<span>on the map as \u201c'+esc(c.gbp)+'\u201d</span>':'')+'</div>';
+ h+='<div class="filebar">'+logoTile(c.lg,c.name,false)+'<div>';
+ h+='<p class="kick">Client dossier \u00b7 '+esc(c.domain)+'</p>';
+ h+='<div class="fh-name">'+esc(c.name)+'</div>';
+ h+='<div class="prof-loc">'+badge(c,true)+'<span>'+(c.city?esc(c.city)+(c.state?', '+esc(c.state):''):'location not on file')+'</span>'+(c.gbp?'<span>on the map as \u201c'+esc(c.gbp)+'\u201d</span>':'')+'</div>';
+ h+='</div></div>';
+ h+='<div class="file-hero"><div>';
+ h+='<h1 class="mega file-mega">'+nbLast(MH.l1)+'<br><span class="l2">'+nbLast(MH.l2)+'</span>'+(MH.l3?'<br>'+nbLast(MH.l3):'')+'</h1>';
+ h+='<p class="file-deck">'+MH.deck+'</p>';
+ h+='<div class="byline"><span>By the numbers, not the brochure</span><span>Every figure computed \u00b7 none invented</span></div>';
+ h+='</div><div>';
+ h+=burstV7(c);
+ h+=fileIndexV7(c);
+ h+='</div></div>';
+ h+='</section>';
+ h+=bandV7(c);
+ h+='<section class="thin">';
  h+='<div class="verdict"><p>'+verdict4(c)+'</p></div>';
  if(c.fx&&c.fx.kp){h+='<div class="note"><p style="margin:0"><strong>This domain currently serves the agency\u2019s suspension notice</strong> \u2014 shown below, captured '+esc(DATA.generated)+'. Site-level readings on this page describe the currently-served page, not a '+co(c)+' website.</p></div>';}
  else if(c.fx&&c.fx.ov){h+='<div class="note"><p style="margin:0"><strong>This domain does not currently serve the '+co(c)+'\u2019s website.</strong> The homepage captured '+esc(DATA.generated)+' \u2014 shown below \u2014 is an unrelated page now being served on this domain. Site-level readings on this page describe that page, not the '+co(c)+'\u2019s work.</p></div>';}
+ h+='</section>';
  h+=storyV7(c);
+ h+=exhibitV7(c);
+ h+='<section id="f-panels"><p class="kick">B6 \u00b7 The data panels \u00b7 every reading in the file</p>';
  h+='<div class="pcards">';
- h+=shotsPanel(c);
  h+=mapPanel4(c);
  h+=fxPanel(c);
  h+=nichePanel4(c);
@@ -1308,7 +1466,7 @@ function route(){
  var m=h.match(/^#\/client\/(.+)$/);
  if(m){
   var c=findClient(decodeURIComponent(m[1]));
-  if(c){app.innerHTML=profileV4(c);setNav('dir');}
+  if(c){app.innerHTML=profileV4(c);fitFileMega();setNav('dir');}
   else{location.replace('#/directory');return;}
  }else if(h==='#/directory'){
   renderDirectory();setNav('dir');
